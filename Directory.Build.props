@@ -1,0 +1,9 @@
+﻿<Project>
+  <PropertyGroup>
+   <Copyright>copyright © .NET Core Community</Copyright>
+   <Product>DeepClone</Product>
+   <Company>.NET Core Community</Company>
+   <Authors>All Members</Authors>
+   <Owners>All Members</Owners>
+</PropertyGroup>
+</Project>
