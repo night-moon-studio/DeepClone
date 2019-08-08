@@ -5,7 +5,7 @@
   <a href="https://github.com/night-moon-studio/deepclone/tree/master/lang/english">English</a>
 </p>
 
-# deepclone
+# DeepClone
 
 [![Member project of Night Moon Studio](https://img.shields.io/badge/member%20project%20of-NMS-9e20c9.svg)](https://github.com/night-moon-studio)
 [![NuGet Badge](https://buildstats.info/nuget/DotNetCore.Natasha.deepclone?includePreReleases=true)](https://www.nuget.org/packages/DotNetCore.Natasha.deepclone)
@@ -32,7 +32,7 @@
 
 ### 项目简介： 
 
-此项目为[Natasha](https://github.com/dotnetcore/Natasha)的衍生项目，通过运行时自动构建高性能操作代理类，为普通类，静态类，动态类，动态类中的动态类，动态生成的静态类等提供了良好的、完备的、高性能的操作，如果反射、dynamic都不能满足高端的需求，可使用本类库，它将是一个不错的选择。  
+此项目为[Natasha](https://github.com/dotnetcore/Natasha)的衍生项目，为用户提供高性能的深度克隆。  
 
 <br/>    
 
