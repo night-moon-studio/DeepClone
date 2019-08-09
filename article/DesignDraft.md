@@ -68,14 +68,19 @@
   
  - ###  Object类型：
  
-        Object类型是干扰泛型类型的一个因素，因此是否对Object做支持，如何做，是一个难点。
- 
+        Object类型是干扰泛型类型的一个因素，因此是否对Object做支持，如何做，是一个难点。  
+        
+   <br/>  
+  
  
  - ### 类型反解：
  
         在使用Natasha的过程中，需要像写原生代码一样写脚本，但是有些类型的名字在运行时是被处理过的，例如：
  
- typeof(List<int>).Name, 输出的是List~1, 因此我们需要用到Natasha的反解器，type.GetDevelopmentName();
+ typeof(List<int>).Name, 输出的是List~1, 因此我们需要用到Natasha的反解器，type.GetDevelopmentName();  
+ 
+   <br/>  
+  
  
  - ### UT测试方法：
  
