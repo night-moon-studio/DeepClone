@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace DeepClone
+namespace DeepClone.Model
 {
     /// <summary>
     /// 构建信息

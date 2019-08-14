@@ -25,8 +25,9 @@ namespace DeepClone.Template
 
 
 
-        public Delegate TypeRouter(Type type)
+        public Delegate TypeRouter(BuilderInfo info)
         {
+            //write clone code
             return default;
         }
 

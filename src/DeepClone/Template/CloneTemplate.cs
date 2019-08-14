@@ -1,7 +1,6 @@
 ﻿using DeepClone.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DeepClone.Template
 {
@@ -15,6 +14,9 @@ namespace DeepClone.Template
             _handlers = new HashSet<ICloneTemplate>();
         }
 
+
+
+
         public bool MatchType(Type type)
         {
             throw new NotImplementedException();
@@ -24,7 +26,7 @@ namespace DeepClone.Template
 
 
         /// <summary>
-        /// 注册类处理操作类
+        /// 注册处理类
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -38,9 +40,15 @@ namespace DeepClone.Template
 
 
 
-        public Delegate TypeRouter(Type type)
+        public Delegate TypeRouter(BuilderInfo info)
         {
+
+            foreach (var item in _handlers)
+            {
+                return item.MatchType(info.DeclaringType)?  item.TypeRouter(info.DeclaringType) :  default;
+            }
             return default;
+
         }
     }
 }
