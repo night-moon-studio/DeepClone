@@ -1,5 +1,5 @@
-﻿using DeepClone.Model;
-using System;
+﻿using System;
+using DeepClone.Model;
 using System.Collections.Generic;
 
 namespace DeepClone.Template
