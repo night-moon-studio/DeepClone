@@ -1,10 +1,30 @@
-﻿using Natasha;
+﻿using DeepClone.Template;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using Natasha.Operator;
 
-namespace DeepClone.Builder {
+namespace DeepClone.Builder
+{
+
+    public class CloneBuidler<T> : CloneBuilder
+    {
+        public Func<T,T> Create()
+        {
+            return (Func<T, T>)(new CloneBuilder()).Create(typeof(T));
+        }
+    }
+
+
+    public class CloneBuilder: CloneTemplate
+    {
+
+        public Delegate Create(Type type)
+        {
+            return TypeRouter(type);
+        }
+
+    }
+
+
 }
+
+
 
