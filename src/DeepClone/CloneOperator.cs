@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeepClone.Builder;
+using System;
 
 namespace DeepClone
 {
@@ -18,10 +19,11 @@ namespace DeepClone
 
     public static class CloneOperator<T>
     {
-
         private readonly static Func<T, T> _func;
-        static CloneOperator() => _func = null;   //这里要对接CloneBuilder
-
+        static CloneOperator()
+        {
+            _func = CloneBuilder<T>.Create();   //这里要对接CloneBuilder
+        }
 
         public static T Clone(T instance)
         {
