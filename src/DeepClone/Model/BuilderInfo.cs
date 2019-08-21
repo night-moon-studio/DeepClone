@@ -17,10 +17,12 @@ namespace DeepClone.Model
         public string MemberTypeName;
         public string MemberTypeAvailableName;
         public string MemberName;
-       
+
         public Type ElementType;
         public string ElementTypeName;
         public string ElementTypeAvailableName;
+        public int ArrayLayer;
+        public int ArrayDimensions;
         public bool IsStatic;
 
 
@@ -45,9 +47,31 @@ namespace DeepClone.Model
                     MemberTypeName = tempInfo.FieldType.GetDevelopName(),
                     MemberTypeAvailableName = tempInfo.FieldType.GetAvailableName(),
 
-
-                    ElementType = tempInfo.FieldType.HasElementType ? tempInfo.FieldType.GetElementType() : tempInfo.FieldType
                 };
+
+
+                if (tempInfo.FieldType.IsArray)
+                {
+
+                    Type temp = tempInfo.FieldType;
+                    int count = 0;
+                    while (temp.HasElementType)
+                    {
+
+                        count++;
+                        temp = tempInfo.FieldType.GetElementType();
+                        
+                    }
+                    instance.ElementType = temp;
+                    instance.ArrayLayer = count;
+
+
+                    var ctor = tempInfo.FieldType.GetConstructors()[0];
+                    instance.ArrayDimensions = ctor.GetParameters().Length;
+                    
+                }
+
+
                 instance.ElementTypeName = instance.ElementType.GetDevelopName();
                 instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
 
@@ -66,6 +90,7 @@ namespace DeepClone.Model
 
                 var instance = new BuilderInfo
                 {
+
                     DeclaringType = tempInfo.DeclaringType,
                     DeclaringTypeName = tempInfo.DeclaringType.GetDevelopName(),
                     DeclaringAvailableName = tempInfo.DeclaringType.GetAvailableName(),
@@ -76,9 +101,30 @@ namespace DeepClone.Model
                     MemberTypeName = tempInfo.PropertyType.GetDevelopName(),
                     MemberTypeAvailableName = tempInfo.PropertyType.GetAvailableName(),
 
-
-                    ElementType = tempInfo.PropertyType.HasElementType ? tempInfo.PropertyType.GetElementType() : tempInfo.PropertyType
                 };
+
+                if (tempInfo.PropertyType.IsArray)
+                {
+
+                    Type temp = tempInfo.PropertyType;
+                    int count = 0;
+                    while (temp.HasElementType)
+                    {
+
+                        count++;
+                        temp = tempInfo.PropertyType.GetElementType();
+
+                    }
+                    instance.ElementType = temp;
+                    instance.ArrayLayer = count;
+
+
+                    var ctor = tempInfo.PropertyType.GetConstructors()[0];
+                    instance.ArrayDimensions = ctor.GetParameters().Length;
+
+                }
+
+
                 instance.ElementTypeName = instance.ElementType.GetDevelopName();
                 instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
 
