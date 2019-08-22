@@ -147,8 +147,28 @@ namespace DeepClone.Model
                 DeclaringType = type,
                 DeclaringTypeName = type.GetDevelopName(),
                 DeclaringAvailableName = type.GetAvailableName(),
-                ElementType = type.HasElementType ? type.GetElementType() : type
             };
+
+            if (type.IsArray)
+            {
+
+                Type temp = type;
+                int count = 0;
+                while (temp.HasElementType)
+                {
+
+                    count++;
+                    temp = type.GetElementType();
+
+                }
+                instance.ElementType = temp;
+                instance.ArrayLayer = count;
+
+
+                var ctor = type.GetConstructors()[0];
+                instance.ArrayDimensions = ctor.GetParameters().Length;
+
+            }
             instance.ElementTypeName = instance.ElementType.GetDevelopName();
             instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
             return instance;
