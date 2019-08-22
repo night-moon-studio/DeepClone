@@ -68,12 +68,15 @@ namespace DeepClone.Model
 
                     var ctor = tempInfo.FieldType.GetConstructors()[0];
                     instance.ArrayDimensions = ctor.GetParameters().Length;
-                    
+
+
+                    instance.ElementTypeName = instance.ElementType.GetDevelopName();
+                    instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
+
                 }
 
 
-                instance.ElementTypeName = instance.ElementType.GetDevelopName();
-                instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
+                
 
                 instance.IsStatic = tempInfo.IsStatic;
                 if (instance.IsStatic)
@@ -122,11 +125,12 @@ namespace DeepClone.Model
                     var ctor = tempInfo.PropertyType.GetConstructors()[0];
                     instance.ArrayDimensions = ctor.GetParameters().Length;
 
+
+                    instance.ElementTypeName = instance.ElementType.GetDevelopName();
+                    instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
+
                 }
-
-
-                instance.ElementTypeName = instance.ElementType.GetDevelopName();
-                instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
+                
 
                 instance.IsStatic = tempInfo.GetGetMethod(true).IsStatic;
                 if (instance.IsStatic)
@@ -168,9 +172,12 @@ namespace DeepClone.Model
                 var ctor = type.GetConstructors()[0];
                 instance.ArrayDimensions = ctor.GetParameters().Length;
 
+
+                instance.ElementTypeName = instance.ElementType.GetDevelopName();
+                instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
+
             }
-            instance.ElementTypeName = instance.ElementType.GetDevelopName();
-            instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
+            
             return instance;
         }
     }
