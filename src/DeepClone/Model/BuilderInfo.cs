@@ -59,7 +59,7 @@ namespace DeepClone.Model
                     {
 
                         count++;
-                        temp = tempInfo.FieldType.GetElementType();
+                        temp = temp.GetElementType();
                         
                     }
                     instance.ElementType = temp;
@@ -112,7 +112,7 @@ namespace DeepClone.Model
                     {
 
                         count++;
-                        temp = tempInfo.PropertyType.GetElementType();
+                        temp = temp.GetElementType();
 
                     }
                     instance.ElementType = temp;
@@ -158,7 +158,7 @@ namespace DeepClone.Model
                 {
 
                     count++;
-                    temp = type.GetElementType();
+                    temp = temp.GetElementType();
 
                 }
                 instance.ElementType = temp;
