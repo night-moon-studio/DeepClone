@@ -127,11 +127,11 @@ namespace DeepClone.Model
             {
 
                 Type temp = type;
-                instance.ArrayBaseType = type.GetElementType();
-                instance.ArrayBaseTypeName = instance.ArrayBaseType.GetDevelopName();
-                instance.ArrayBaseTypeAvaliableName = instance.ArrayBaseType.GetAvailableName();
+                instance.ElementType = type.GetElementType();
+                instance.ElementTypeName = instance.ElementType.GetDevelopName();
+                instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
 
-
+               
                 int count = 0;
                 while (temp.HasElementType)
                 {
@@ -140,16 +140,15 @@ namespace DeepClone.Model
                     temp = temp.GetElementType();
 
                 }
-                instance.ElementType = temp;
                 instance.ArrayLayer = count;
-
+                instance.ArrayBaseType = temp;
+                instance.ArrayBaseTypeName = instance.ArrayBaseType.GetDevelopName();
+                instance.ArrayBaseTypeAvaliableName = instance.ArrayBaseType.GetAvailableName();
+               
 
                 var ctor = type.GetConstructors()[0];
                 instance.ArrayDimensions = ctor.GetParameters().Length;
 
-
-                instance.ElementTypeName = instance.ElementType.GetDevelopName();
-                instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
 
             }
 
