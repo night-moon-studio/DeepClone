@@ -9,20 +9,32 @@ namespace DeepClone.Model
     /// </summary>
     public class BuilderInfo
     {
+
         public Type DeclaringType;
         public string DeclaringTypeName;
         public string DeclaringAvailableName;
+
 
         public Type MemberType;
         public string MemberTypeName;
         public string MemberTypeAvailableName;
         public string MemberName;
 
+
         public Type ElementType;
         public string ElementTypeName;
         public string ElementTypeAvailableName;
+
+
+        public Type ArrayBaseType;
+        public string ArrayBaseTypeName;
+        public string ArrayBaseTypeAvaliableName;
+
+
         public int ArrayLayer;
         public int ArrayDimensions;
+
+
         public bool IsStatic;
 
 
@@ -34,13 +46,8 @@ namespace DeepClone.Model
             {
 
                 var tempInfo = (FieldInfo)(info);
-
                 var instance = new BuilderInfo
                 {
-                    DeclaringType = tempInfo.DeclaringType,
-                    DeclaringTypeName = tempInfo.DeclaringType.GetDevelopName(),
-                    DeclaringAvailableName = tempInfo.DeclaringType.GetAvailableName(),
-
 
                     MemberName = tempInfo.Name,
                     MemberType = tempInfo.FieldType,
@@ -50,38 +57,16 @@ namespace DeepClone.Model
                 };
 
 
-                if (tempInfo.FieldType.IsArray)
+                HandlerDeclaringType(instance, tempInfo.DeclaringType);
+                HandlerArrayType(instance, tempInfo.FieldType);
+
+
+                if (tempInfo.IsStatic)
                 {
 
-                    Type temp = tempInfo.FieldType;
-                    int count = 0;
-                    while (temp.HasElementType)
-                    {
-
-                        count++;
-                        temp = temp.GetElementType();
-                        
-                    }
-                    instance.ElementType = temp;
-                    instance.ArrayLayer = count;
-
-
-                    var ctor = tempInfo.FieldType.GetConstructors()[0];
-                    instance.ArrayDimensions = ctor.GetParameters().Length;
-
-
-                    instance.ElementTypeName = instance.ElementType.GetDevelopName();
-                    instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
-
-                }
-
-
-                
-
-                instance.IsStatic = tempInfo.IsStatic;
-                if (instance.IsStatic)
-                {
+                    instance.IsStatic = true;
                     instance.StaticName = $"{instance.DeclaringTypeName}";
+
                 }
                 return instance;
 
@@ -90,14 +75,8 @@ namespace DeepClone.Model
             {
 
                 var tempInfo = (PropertyInfo)(info);
-
                 var instance = new BuilderInfo
                 {
-
-                    DeclaringType = tempInfo.DeclaringType,
-                    DeclaringTypeName = tempInfo.DeclaringType.GetDevelopName(),
-                    DeclaringAvailableName = tempInfo.DeclaringType.GetAvailableName(),
-
 
                     MemberName = tempInfo.Name,
                     MemberType = tempInfo.PropertyType,
@@ -106,36 +85,17 @@ namespace DeepClone.Model
 
                 };
 
-                if (tempInfo.PropertyType.IsArray)
+
+                HandlerDeclaringType(instance, tempInfo.DeclaringType);
+                HandlerArrayType(instance, tempInfo.PropertyType);
+
+
+                if (tempInfo.GetGetMethod(true).IsStatic)
                 {
 
-                    Type temp = tempInfo.PropertyType;
-                    int count = 0;
-                    while (temp.HasElementType)
-                    {
-
-                        count++;
-                        temp = temp.GetElementType();
-
-                    }
-                    instance.ElementType = temp;
-                    instance.ArrayLayer = count;
-
-
-                    var ctor = tempInfo.PropertyType.GetConstructors()[0];
-                    instance.ArrayDimensions = ctor.GetParameters().Length;
-
-
-                    instance.ElementTypeName = instance.ElementType.GetDevelopName();
-                    instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
-
-                }
-                
-
-                instance.IsStatic = tempInfo.GetGetMethod(true).IsStatic;
-                if (instance.IsStatic)
-                {
+                    instance.IsStatic = true;
                     instance.StaticName = $"{instance.DeclaringTypeName}";
+
                 }
                 return instance;
 
@@ -144,19 +104,34 @@ namespace DeepClone.Model
             return null;
         }
 
+
+
+
         public static implicit operator BuilderInfo(Type type)
         {
-            var instance = new BuilderInfo
-            {
-                DeclaringType = type,
-                DeclaringTypeName = type.GetDevelopName(),
-                DeclaringAvailableName = type.GetAvailableName(),
-            };
+
+            var instance = new BuilderInfo();
+            HandlerDeclaringType(instance, type);
+            HandlerArrayType(instance, type);
+            return instance;
+
+        }
+
+
+
+
+        public static BuilderInfo HandlerArrayType(BuilderInfo instance, Type type)
+        {
 
             if (type.IsArray)
             {
 
                 Type temp = type;
+                instance.ArrayBaseType = type.GetElementType();
+                instance.ArrayBaseTypeName = instance.ArrayBaseType.GetDevelopName();
+                instance.ArrayBaseTypeAvaliableName = instance.ArrayBaseType.GetAvailableName();
+
+
                 int count = 0;
                 while (temp.HasElementType)
                 {
@@ -177,8 +152,24 @@ namespace DeepClone.Model
                 instance.ElementTypeAvailableName = instance.ElementType.GetAvailableName();
 
             }
-            
+
             return instance;
+
         }
+
+
+
+
+        public static BuilderInfo HandlerDeclaringType(BuilderInfo instance, Type type)
+        {
+
+            instance.DeclaringType = type;
+            instance.DeclaringTypeName = type.GetDevelopName();
+            instance.DeclaringAvailableName = type.GetAvailableName();
+            return instance;
+
+        }
+
     }
+
 }
