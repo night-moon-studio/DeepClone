@@ -4,8 +4,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Natasha" Version="1.3.4" />
+    <None Remove="Program.cs~RFa0f4a6.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.Natasha" Version="1.3.6" />
   </ItemGroup>
 
 </Project>
