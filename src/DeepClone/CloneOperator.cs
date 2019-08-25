@@ -19,17 +19,10 @@ namespace DeepClone
 
     public static class CloneOperator<T>
     {
-        private readonly static Func<T, T> _func;
+        public readonly static Func<T, T> Clone;
         static CloneOperator()
         {
-            _func = CloneBuilder<T>.Create();   //这里要对接CloneBuilder
-        }
-
-        public static T Clone(T instance)
-        {
-
-            return _func(instance);
-
+            Clone = CloneBuilder<T>.Create();   //这里要对接CloneBuilder
         }
 
     }
