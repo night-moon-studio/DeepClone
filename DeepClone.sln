@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeepClone", "src\DeepClone\DeepClone.csproj", "{A694DE82-5789-4D66-9A8E-BD67732323CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeepCloneUT", "test\DeepCloneUT\DeepCloneUT.csproj", "{D0B8CDD9-979F-4E8C-837E-50DF8313E680}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{99EFD576-BA76-4837-A8DC-A0A3078A0183}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{202285D9-831D-444A-94EF-984879E56A54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{00F21AB9-2F67-4A16-BFD0-6A5C984595E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeepCloneSelfTest", "samples\DeepCloneSelfTest\DeepCloneSelfTest.csproj", "{8042241C-9C8B-465B-94DC-CB9E5CDA1500}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BBA88067-F69B-44C3-910F-C28F7B14A921}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		_config.yml = _config.yml
+		appveyor.yml = appveyor.yml
+		azure-pipelines.yml = azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A694DE82-5789-4D66-9A8E-BD67732323CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A694DE82-5789-4D66-9A8E-BD67732323CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A694DE82-5789-4D66-9A8E-BD67732323CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A694DE82-5789-4D66-9A8E-BD67732323CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B8CDD9-979F-4E8C-837E-50DF8313E680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B8CDD9-979F-4E8C-837E-50DF8313E680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B8CDD9-979F-4E8C-837E-50DF8313E680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B8CDD9-979F-4E8C-837E-50DF8313E680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8042241C-9C8B-465B-94DC-CB9E5CDA1500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8042241C-9C8B-465B-94DC-CB9E5CDA1500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8042241C-9C8B-465B-94DC-CB9E5CDA1500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8042241C-9C8B-465B-94DC-CB9E5CDA1500}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A694DE82-5789-4D66-9A8E-BD67732323CE} = {99EFD576-BA76-4837-A8DC-A0A3078A0183}
+		{D0B8CDD9-979F-4E8C-837E-50DF8313E680} = {202285D9-831D-444A-94EF-984879E56A54}
+		{8042241C-9C8B-465B-94DC-CB9E5CDA1500} = {00F21AB9-2F67-4A16-BFD0-6A5C984595E9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A5D981C-730C-4FCB-AFBB-B84033E60ED3}
+	EndGlobalSection
+EndGlobal
