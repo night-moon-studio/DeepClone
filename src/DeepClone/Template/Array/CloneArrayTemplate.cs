@@ -22,12 +22,14 @@ namespace DeepClone.Template
 
         public Delegate TypeRouter(Model.BuilderInfo info)
         {
-            // TODO clone code
             var sb = new StringBuilder();
 
             if (info.ArrayBaseType.IsOnceType())
             {
-                sb.AppendLine($"return ({info.DeclaringTypeName})oldIns.Clone();");
+                sb.AppendLine($@"
+                        var newIns = new {info.ElementTypeName}[oldIns.Length];
+                        Array.Copy(oldIns, newIns, newIns.Length);
+                        return newIns;");
             }
             else if (info.ArrayDimensions > 1) // 多维数组
             {
@@ -65,7 +67,6 @@ return newIns;
             }
 
             var tempBuilder = FastMethodOperator.New;
-            // tempBuilder.Complier.UseFileComplie();
 
             var action = tempBuilder
                             .Using("DeepClone")
