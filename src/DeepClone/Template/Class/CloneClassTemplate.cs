@@ -40,29 +40,42 @@ namespace DeepClone.Template
                 return default;
             }
             var builder = new StringBuilder($"new {info.DeclaringTypeName} {{");
-            foreach (var memeberInfo in info.DeclaringType.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(item=>item.MemberType==MemberTypes.Field|| item.MemberType==MemberTypes.Property))
+            foreach (var fieldInfo in info.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
-                if (memeberInfo.DeclaringType.IsValueType || (memeberInfo.MemberType==MemberTypes.Field &&(memeberInfo as FieldInfo).FieldType == typeof(string)))
+                if (fieldInfo.Attributes.HasFlag(FieldAttributes.InitOnly))
                 {
-                    builder.Append($"{memeberInfo.Name}=oldModel.{memeberInfo.Name}");
                     continue;
                 }
-                if (memeberInfo.DeclaringType.IsValueType || (memeberInfo.MemberType == MemberTypes.Field && (memeberInfo as PropertyInfo).PropertyType == typeof(string)))
+                if (fieldInfo.DeclaringType.IsValueType || fieldInfo.FieldType == typeof(string))
                 {
-                    builder.Append($"{memeberInfo.Name}=oldModel.{memeberInfo.Name}");
+                    builder.Append($"{fieldInfo.Name}=oldModel.{fieldInfo.Name},");
                     continue;
                 }
-                builder.Append($"{memeberInfo.Name}=CloneOperator.Clone(oldModel.{memeberInfo.Name})");
+                builder.Append($"{fieldInfo.Name}=CloneOperator.Clone(oldModel.{fieldInfo.Name}),");
+            }
+
+            foreach (var propertyInfo in info.DeclaringType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                if (propertyInfo.Attributes.HasFlag(FieldAttributes.InitOnly))
+                {
+                    continue;
+                }
+                if (propertyInfo.DeclaringType.IsValueType || propertyInfo.PropertyType == typeof(string))
+                {
+                    builder.Append($"{propertyInfo.Name}=oldModel.{propertyInfo.Name},");
+                    continue;
+                }
+                builder.Append($"{propertyInfo.Name}=CloneOperator.Clone(oldModel.{propertyInfo.Name}),");
             }
 
             builder.Append("}};");
 
-            return FastMethodOperator.New
-                .OopName($"{info.DeclaringTypeName}Clone")
+            var func = FastMethodOperator.New
                 .Param(info.DeclaringType, "oldModel")
-                .OopBody(builder)
+                .MethodBody(builder.ToString())
                 .Return(info.DeclaringType)
                 .Complie();
+            return func;
         }
 
     }
