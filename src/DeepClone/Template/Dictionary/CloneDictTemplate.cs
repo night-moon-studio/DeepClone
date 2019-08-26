@@ -6,10 +6,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeepClone.Template.Class
+namespace DeepClone.Template
 {
     public class CloneDictTemplate : ICloneTemplate
     {
+
         internal readonly static int HashCode;
         static CloneDictTemplate() => HashCode = typeof(CloneDictTemplate).GetHashCode();
 
@@ -50,10 +51,7 @@ namespace DeepClone.Template.Class
 
             //克隆Key
             var keyType = info.DeclaringType.GetGenericArguments()[0];
-            if (keyType.IsValueType 
-                || keyType == typeof(string) 
-                || keyType == typeof(Delegate)
-                || keyType == typeof(MulticastDelegate))
+            if (keyType.IsSimpleType())
             {
 
                 scriptBuilder.Append($"item.Key,");
@@ -69,10 +67,7 @@ namespace DeepClone.Template.Class
 
             //克隆Value
             var valueType = info.DeclaringType.GetGenericArguments()[1];
-            if (valueType.IsValueType
-                || valueType == typeof(string)
-                || valueType == typeof(Delegate)
-                || valueType == typeof(MulticastDelegate))
+            if (valueType.IsSimpleType())
             {
 
                 scriptBuilder.Append($"item.Value");
