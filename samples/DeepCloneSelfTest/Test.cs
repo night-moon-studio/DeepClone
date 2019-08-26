@@ -16,8 +16,6 @@ namespace DeepCloneSelfTest
         public void Clone()
         {
 
-            IEnumerable<int>
-
             var action = NewMethod.Create<Func<Test, Test>>(builder=>
             builder
             .MethodBody(@"
