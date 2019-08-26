@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeepClone.Template.Class
+namespace DeepClone.Template
 {
     public class CloneDictTemplate : ICloneTemplate
     {

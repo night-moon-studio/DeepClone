@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Text;
 using DeepClone.Model;
 using Natasha;
@@ -14,11 +13,7 @@ namespace DeepClone.Template
 
         public override int GetHashCode() => HashCode;
 
-
-        private readonly static Type arrayType = typeof(Array);
-        private readonly static Type arrayListType = typeof(ArrayList);
         public bool MatchType(Type type) => type.IsArray;
-
 
         public Delegate TypeRouter(Model.BuilderInfo info)
         {
@@ -26,10 +21,33 @@ namespace DeepClone.Template
 
             if (info.ArrayBaseType.IsOnceType())
             {
-                sb.AppendLine($@"
-                        var newIns = new {info.ElementTypeName}[oldIns.Length];
+                if (info.ArrayDimensions >= 1 && info.ArrayLayer == 1) // 多维数组 & 1维数组
+                {
+                    // 多维数组长度数组
+                    var multiArrLenArr = new string[info.ArrayDimensions];
+                    for (int i = 0; i < info.ArrayDimensions; i++)
+                    {
+                        multiArrLenArr[i] = $"oldIns.GetLength({i})";
+                    }
+                    var multiArrTypeStr = string.Join(",", multiArrLenArr);
+
+                    sb.AppendLine($@"
+                        {info.DeclaringType} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
                         Array.Copy(oldIns, newIns, newIns.Length);
                         return newIns;");
+                }
+                else // 锯齿数组
+                {
+                    var arrr = new StringBuilder();
+                    for (int i = 1; i < info.ArrayLayer; i++)
+                    {
+                        arrr.Append("[]");
+                    }
+                    sb.AppendLine($@"
+                        var newIns = new {info.ArrayBaseTypeName}[oldIns.Length]{arrr.ToString()};
+                        Array.Copy(oldIns, newIns, newIns.Length);
+                        return newIns;");
+                }
             }
             else if (info.ArrayDimensions > 1) // 多维数组
             {
