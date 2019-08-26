@@ -45,7 +45,10 @@ namespace DeepClone.Template
 
             foreach (var item in _handlers)
             {
-                return item.MatchType(info.DeclaringType)?  item.TypeRouter(info.DeclaringType) :  default;
+                if (item.MatchType(info.DeclaringType))
+                {
+                    return item.TypeRouter(info.DeclaringType);
+                }
             }
             return default;
 
