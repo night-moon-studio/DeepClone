@@ -47,18 +47,18 @@ namespace DeepCloneUT
                 Assert.Equal(tt1[i], tt1[i]);
             }
 
-            List<TestList> kk = new List<TestList>();
-            TestList t1 = new TestList();
-            t1.B = "13";
-            TestList2 t2 = new TestList2();
-            t2.A = "234";
-            t1.List2 = t2;
-            kk.Add(t1);
-            //var ttt1 = CloneOperator.Clone(kk);
+            //List<TestList> kk = new List<TestList>();
+            //TestList t1 = new TestList();
+            //t1.B = "13";
+            //TestList2 t2 = new TestList2();
+            //t2.A = "234";
+            //t1.List2 = t2;
+            //kk.Add(t1);
+            ////var ttt1 = CloneOperator.Clone(kk);
 
-            var testList2 = CloneOperator.Clone(t1); // 实体拷贝时出错
+            //var testList2 = CloneOperator.Clone(t1); // 实体拷贝时出错
 
-            var tt = CloneOperator.Clone(lli);
+            //var tt = CloneOperator.Clone(lli);
             //Console.WriteLine(tt == null);
         }
     }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace DeepClone.Template.List
+namespace DeepClone.Template
 {
 
     public class CloneListTemplate : ICloneTemplate

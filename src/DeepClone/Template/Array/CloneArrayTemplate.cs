@@ -24,7 +24,7 @@ namespace DeepClone.Template
         {
             var sb = new StringBuilder();
 
-            if (info.ArrayBaseType.IsOnceType())
+            if (info.ArrayBaseType.IsSimpleType())
             {
                 sb.AppendLine($@"
                         var newIns = new {info.ElementTypeName}[oldIns.Length];
