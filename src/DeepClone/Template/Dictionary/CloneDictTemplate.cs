@@ -10,6 +10,7 @@ namespace DeepClone.Template
 {
     public class CloneDictTemplate : ICloneTemplate
     {
+
         internal readonly static int HashCode;
         static CloneDictTemplate() => HashCode = typeof(CloneDictTemplate).GetHashCode();
 
@@ -31,7 +32,7 @@ namespace DeepClone.Template
 
 
 
-        public Delegate TypeRouter(Model.BuilderInfo info)
+        public Delegate TypeRouter(NBuildInfo info)
         {
 
             StringBuilder scriptBuilder = new StringBuilder();
@@ -50,10 +51,7 @@ namespace DeepClone.Template
 
             //克隆Key
             var keyType = info.DeclaringType.GetGenericArguments()[0];
-            if (keyType.IsValueType 
-                || keyType == typeof(string) 
-                || keyType == typeof(Delegate)
-                || keyType == typeof(MulticastDelegate))
+            if (keyType.IsSimpleType())
             {
 
                 scriptBuilder.Append($"item.Key,");
@@ -69,10 +67,7 @@ namespace DeepClone.Template
 
             //克隆Value
             var valueType = info.DeclaringType.GetGenericArguments()[1];
-            if (valueType.IsValueType
-                || valueType == typeof(string)
-                || valueType == typeof(Delegate)
-                || valueType == typeof(MulticastDelegate))
+            if (valueType.IsSimpleType())
             {
 
                 scriptBuilder.Append($"item.Value");

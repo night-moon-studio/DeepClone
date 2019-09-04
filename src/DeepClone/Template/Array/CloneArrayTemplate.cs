@@ -15,11 +15,12 @@ namespace DeepClone.Template
 
         public bool MatchType(Type type) => type.IsArray;
 
-        public Delegate TypeRouter(Model.BuilderInfo info)
+
+        public Delegate TypeRouter(NBuildInfo info)
         {
             var sb = new StringBuilder();
 
-            if (info.ArrayBaseType.IsOnceType())
+            if (info.ArrayBaseType.IsSimpleType())
             {
                 if (info.ArrayDimensions >= 1 && info.ArrayLayer == 1) // 多维数组 & 1维数组
                 {
