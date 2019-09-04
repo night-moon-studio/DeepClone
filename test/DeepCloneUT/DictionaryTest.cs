@@ -6,7 +6,7 @@ using Xunit;
 
 namespace DeepCloneUT
 {
-    public class DictionaryClass
+    public class DictionaryTest
     {
         [Fact]
         public void DictionaryCloneTest()
