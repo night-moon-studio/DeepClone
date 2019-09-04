@@ -49,6 +49,7 @@ namespace DeepClone.Template
            scriptBuilder.AppendLine("(old.Select(item=>KeyValuePair.Create(");
 
 
+
             //克隆Key
             var keyType = info.DeclaringType.GetGenericArguments()[0];
             if (keyType.IsSimpleType())
