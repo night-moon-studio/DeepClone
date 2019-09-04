@@ -1,6 +1,7 @@
 ﻿using System;
 using DeepClone.Model;
 using System.Collections.Generic;
+using Natasha;
 
 namespace DeepClone.Template
 {
@@ -40,7 +41,7 @@ namespace DeepClone.Template
 
 
 
-        public Delegate TypeRouter(BuilderInfo info)
+        public Delegate TypeRouter(NBuildInfo info)
         {
 
             foreach (var item in _handlers)

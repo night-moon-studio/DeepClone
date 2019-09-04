@@ -29,7 +29,7 @@ namespace DeepClone.Template
 
 
 
-        public Delegate TypeRouter(Model.BuilderInfo info)
+        public Delegate TypeRouter(NBuildInfo info)
         {
 
             if (info.DeclaringType.IsGenericType)

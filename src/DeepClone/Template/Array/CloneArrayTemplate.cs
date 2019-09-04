@@ -20,7 +20,7 @@ namespace DeepClone.Template
         public bool MatchType(Type type) => type.IsArray;
 
 
-        public Delegate TypeRouter(Model.BuilderInfo info)
+        public Delegate TypeRouter(NBuildInfo info)
         {
             var sb = new StringBuilder();
 

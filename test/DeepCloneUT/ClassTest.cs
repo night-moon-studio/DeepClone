@@ -19,7 +19,7 @@ namespace DeepCloneUT
 
     public class TestModel1
     {
-        private TestModel1() { }
+        public TestModel1() { }
 
         public TestModel1(string a) { }
     }
@@ -45,7 +45,7 @@ namespace DeepCloneUT
             var testModel=CloneOperator.Clone(model);
             Assert.NotSame(model, testModel);
             Assert.Equal(model.B, testModel.B);
-            Assert.Null(model.Model1);
+            Assert.NotNull(model.Model1);
             Assert.NotSame(model.Model2, testModel.Model2);
             Assert.Equal(model.Model2.A, testModel.Model2.A);
             Assert.Equal(model.Model2.B, testModel.Model2.B);
