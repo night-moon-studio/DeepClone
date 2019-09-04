@@ -64,11 +64,11 @@ namespace DeepClone.Template
                 scriptBuilder.Append("));");
 
 
-                scriptBuilder.AppendLine(@"return old;");
+                scriptBuilder.AppendLine(@"}return default;");
                 var action = FastMethodOperator.New
                                 .Using("DeepClone")
                                 .Using("System.Linq")
-                                .Param(info.DeclaringType, "oldlist")
+                                .Param(info.DeclaringType, "old")
                                 .MethodBody(scriptBuilder.ToString())
                                 .Return(info.DeclaringType)
                                 .Complie();
