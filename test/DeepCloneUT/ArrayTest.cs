@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using System.Linq;
 
 namespace DeepCloneUT
 {
@@ -27,24 +28,21 @@ namespace DeepCloneUT
             Assert.True(arrayTestModel.Length==arrayTestModelNew.Length);
             Assert.NotSame(arrayTestModel[0], arrayTestModelNew[0]);
 
-            //多为数组
-            var muiltArrayInt = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 } };
+            ////多维数组
+            //var muiltArray = new int[,] { { 1, 2, 3 }, { 1, 1, 1 } };
+            
 
-            var muiltArrayIntNew = DeepClone.CloneOperator.Clone(muiltArrayInt);
-            Assert.NotNull(muiltArrayIntNew);
-            Assert.NotSame(muiltArrayInt, muiltArrayIntNew);
-            Assert.True(muiltArrayInt.Length== muiltArrayIntNew.Length);
-            Assert.NotSame(muiltArrayInt[0], muiltArrayIntNew[0]);
-            Assert.NotSame(muiltArrayInt[1], muiltArrayIntNew[1]);
-            //锯齿数组
-            var muilt1ArrayInt = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1 } };
-            var muilt1ArrayIntNew = DeepClone.CloneOperator.Clone(muilt1ArrayInt);
+            //var muiltArrayNew = DeepClone.CloneOperator.Clone(muiltArray);
 
-            Assert.NotNull(muilt1ArrayIntNew);
-            Assert.NotSame(muilt1ArrayInt, muilt1ArrayIntNew);
-            Assert.True(muilt1ArrayInt.Length == muilt1ArrayIntNew.Length);
-            Assert.NotSame(muilt1ArrayInt[0], muilt1ArrayIntNew[0]);
-            Assert.NotSame(muilt1ArrayInt[1], muilt1ArrayIntNew[1]);
+
+            ////交错数组
+            //var staArrayInt = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 } };
+            //var staArrayIntNew = DeepClone.CloneOperator.Clone(staArrayInt);
+            //Assert.NotNull(staArrayIntNew);
+            //Assert.NotSame(staArrayInt, staArrayIntNew);
+            //Assert.True(staArrayInt.Length== staArrayIntNew.Length);
+            //Assert.NotSame(staArrayInt[0], staArrayIntNew[0]);
+            //Assert.NotSame(staArrayInt[1], staArrayIntNew[1]);
         }
     }
 }
