@@ -46,7 +46,7 @@ namespace DeepClone.Template
                 scriptBuilder.AppendLine($"new {info.DeclaringTypeName}");
 
             }
-           scriptBuilder.AppendLine(" (old.Select(item=>{{return  new KeyValuePair(");
+           scriptBuilder.AppendLine(" (old.Select(item=>{return KeyValuePair.Create(");
 
 
             //克隆Key
