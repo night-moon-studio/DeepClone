@@ -46,7 +46,8 @@ namespace DeepClone.Template
                 scriptBuilder.AppendLine($"new {info.DeclaringTypeName}");
 
             }
-           scriptBuilder.AppendLine(" (old.Select(item=>{{return  new KeyValuePair(");
+           scriptBuilder.AppendLine("(old.Select(item=>KeyValuePair.Create(");
+
 
 
             //克隆Key
@@ -82,10 +83,10 @@ namespace DeepClone.Template
 
 
             //补全括号，返回默认值。
-            scriptBuilder.AppendLine(");}));}return default;");
+            scriptBuilder.AppendLine(")));}return default;");
+            var actionBuilder = FastMethodOperator.New;
 
-
-            var action = FastMethodOperator.New
+            var action = actionBuilder
                             .Using("DeepClone")
                             .Using("System.Linq")
                             .Using(typeof(IDictionary))
