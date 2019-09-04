@@ -141,10 +141,10 @@ namespace DeepClone.Template
             {
                 // 生成锯齿数组结构
                 // Generating jagged array structure
-                var arrTemp = Enumerable.Repeat("[]", info.ArrayLayer - 1);
+                var arrItem = Enumerable.Repeat("[]", info.ArrayLayer - 1);
                 sb.AppendLine($@"
                         if(oldIns==default) return default;
-                        {info.DeclaringTypeName} newIns = new {info.ArrayBaseTypeName}[oldIns.Length]{arrTemp};
+                        {info.DeclaringTypeName} newIns = new {info.ArrayBaseTypeName}[oldIns.Length]{string.Join(string.Empty, arrItem)};
                         Array.Copy(oldIns, newIns, newIns.Length);
                         return newIns;
                     ");
