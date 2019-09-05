@@ -1,0 +1,20 @@
+using System.Collections.Generic;
+using System.Linq;
+
+namespace DeepCloneUT.EqualityComparer
+{
+    public class DictArrayEqualityComparer : IEqualityComparer<Dictionary<int, int>>
+    {
+        public bool Equals(Dictionary<int, int> x, Dictionary<int, int> y)
+        {
+            if (x == null && y == null)
+                return true;
+            return x.Keys.SequenceEqual(y.Keys) && x.Values.SequenceEqual(y.Values);
+        }
+
+        public int GetHashCode(Dictionary<int, int> obj)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}
