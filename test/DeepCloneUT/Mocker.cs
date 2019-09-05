@@ -307,7 +307,9 @@ namespace DeepCloneUT
                 teacher = _mockIns();
                 teacher.MemberType = MemberType.Teacher;
             }
-            return _mockIns().Teacher = teacher;
+            var result = _mockIns();
+            result.Teacher = teacher;
+            return result;
         }
 
         public static Dictionary<int, int> MockDict(int? len = null, bool notNull = false)
