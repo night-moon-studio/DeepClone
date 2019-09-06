@@ -147,7 +147,7 @@ namespace DeepCloneUT
             var random = new Random();
             Member[] arrIns0 = null;
             // var arrIns1 = new object[] { new Member(), new Member(), new Member() };
-            var arrIns2 = Mocker.MockArrayMember();
+            var arrIns2 = Mocker.MockArrayMember(notNull: true);
             var arrIns3 = new Dictionary<int, int>[] {
                 Mocker.MockDict(),
                 Mocker.MockDict()
@@ -456,23 +456,26 @@ namespace DeepCloneUT
             Assert.NotNull(arrIns2_Clone);
             Assert.NotSame(arrIns2_Clone, arrIns2);
             Assert.True(arrIns2_Clone.Length == arrIns2.Length);
-            // Assert.Equal(arrIns2_Clone, arrIns2, new MemberArrayEqualityComparer());
-            for (int i = 0; i < arrIns2.Length; i++)
-                Assert.Equal(arrIns2_Clone, arrIns2);
-
-            // Assert.AreEqual(arrIns2_Clone, arrIns2);
+            for (int _0 = 0; _0 < arrIns2_Clone.GetLength(0); _0++)
+                for (int _1 = 0; _1 < arrIns2_Clone.GetLength(1); _1++)
+                    for (int _2 = 0; _2 < arrIns2_Clone.GetLength(2); _2++)
+                        Assert.Equal(arrIns2_Clone[_0, _1, _2], arrIns2[_0, _1, _2], new MemberArrayEqualityComparer());
 
             Assert.NotNull(arrIns3_Clone);
             Assert.NotSame(arrIns3_Clone, arrIns3);
             Assert.True(arrIns3_Clone.Length == arrIns3.Length);
-            // Assert.Equal(arrIns3_Clone, arrIns3, new DictArrayEqualityComparer());
-            Assert.Equal(arrIns3_Clone, arrIns3);
+            for (int _0 = 0; _0 < arrIns3_Clone.GetLength(0); _0++)
+                for (int _1 = 0; _1 < arrIns3_Clone.GetLength(1); _1++)
+                    for (int _2 = 0; _2 < arrIns3_Clone.GetLength(2); _2++)
+                        Assert.Equal(arrIns3_Clone[_0, _1, _2], arrIns3[_0, _1, _2], new DictArrayEqualityComparer());
 
             Assert.NotNull(arrIns4_Clone);
             Assert.NotSame(arrIns4_Clone, arrIns4);
             Assert.True(arrIns4_Clone.Length == arrIns4.Length);
-            // Assert.Equal(arrIns4_Clone, arrIns4, new ListArrayEqualityComparer());
-            Assert.Equal(arrIns4_Clone, arrIns4);
+            for (int _0 = 0; _0 < arrIns4_Clone.GetLength(0); _0++)
+                for (int _1 = 0; _1 < arrIns4_Clone.GetLength(1); _1++)
+                    for (int _2 = 0; _2 < arrIns4_Clone.GetLength(2); _2++)
+                        Assert.Equal(arrIns4_Clone[_0, _1, _2], arrIns4[_0, _1, _2], new ListArrayEqualityComparer());
 
             // Assert.Equal(arrIns5_Clone, arrIns5);
         }
@@ -781,17 +784,17 @@ namespace DeepCloneUT
             Assert.NotNull(arrIns2_Clone);
             Assert.NotSame(arrIns2_Clone, arrIns2);
             Assert.True(arrIns2_Clone.Length == arrIns2.Length);
-            Assert.Equal(arrIns2_Clone, arrIns2);
+            Assert.Equal(arrIns2_Clone, arrIns2, new Member2JaggedArrayEqualityComparer());
 
             Assert.NotNull(arrIns3_Clone);
             Assert.NotSame(arrIns3_Clone, arrIns3);
             Assert.True(arrIns3_Clone.Length == arrIns3.Length);
-            Assert.Equal(arrIns3_Clone, arrIns3);
+            Assert.Equal(arrIns3_Clone, arrIns3, new Dict2JaggedArrayEqualityComparer());
 
             Assert.NotNull(arrIns4_Clone);
             Assert.NotSame(arrIns4_Clone, arrIns4);
             Assert.True(arrIns4_Clone.Length == arrIns4.Length);
-            Assert.Equal(arrIns4_Clone, arrIns4);
+            Assert.Equal(arrIns4_Clone, arrIns4, new List2JaggedArrayEqualityComparer());
 
             // Assert.Equal(arrIns5_Clone, arrIns5);
         }
