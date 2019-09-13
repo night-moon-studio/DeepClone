@@ -34,6 +34,8 @@ namespace DeepClone.Template
 
         public Delegate TypeRouter(NBuildInfo info)
         {
+
+            var builder = FastMethodOperator.New;
             //构造函数处理: 不存在public无参构造函数无法克隆;
             if (info.DeclaringType.GetConstructor(new Type[0]) == null)
             {
@@ -48,12 +50,14 @@ namespace DeepClone.Template
             {
                 if (!fieldInfo.IsInitOnly)
                 {
+                    
                     if (fieldInfo.FieldType.IsSimpleType())
                     {
                         memberBuilder.Append($"{fieldInfo.Name}=old.{fieldInfo.Name},");
                     }
                     else
                     {
+                        builder.Using(fieldInfo.FieldType);
                         memberBuilder.Append($"{fieldInfo.Name}=CloneOperator.Clone(old.{fieldInfo.Name}),");
                     }
                 }
@@ -70,6 +74,7 @@ namespace DeepClone.Template
                     }
                     else
                     {
+                        builder.Using(propertyInfo.PropertyType);
                         memberBuilder.Append($"{propertyInfo.Name}=CloneOperator.Clone(old.{propertyInfo.Name}),");
                     }
                 }
@@ -85,7 +90,7 @@ namespace DeepClone.Template
 
             scriptBuilder.Append("};}return default;");
 
-            var func = FastMethodOperator.New
+            var func = builder
                 .Using("DeepClone")
                 .Param(info.DeclaringType, "old")
                 .MethodBody(scriptBuilder.ToString())
