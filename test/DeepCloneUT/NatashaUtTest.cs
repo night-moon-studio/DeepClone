@@ -152,6 +152,36 @@ namespace DeepCloneUT
 
 
 
+            [Fact(DisplayName = "只读构造")]
+            public void ReadonlyNormal()
+            {
+                PropCloneNormalModel model = new PropCloneNormalModel
+                {
+                    Age = 1000,
+                    Name = "ababab",
+                    Timer = DateTime.Now,
+                    money = 100000,
+
+                    Title = false,
+                    Id = 100000
+                };
+
+                var newModel = CloneOperator.Clone(model);
+                Assert.False(newModel.NoUseCtor);
+                Assert.Equal(0, newModel.ReadOnly);
+                Assert.Equal(model.ReadOnlyString, newModel.ReadOnlyString);
+                Assert.Equal(model.ReadOnlyString1, newModel.ReadOnlyString1);
+                Assert.Equal(model.Id, newModel.Id);
+                Assert.Equal(model.Title, newModel.Title);
+                Assert.Equal(model.money, newModel.money);
+                Assert.Equal(model.Timer, newModel.Timer);
+                Assert.Equal(model.Age, newModel.Age);
+                Assert.Equal(model.Name, newModel.Name);
+            }
+
+
+
+
             [Fact(DisplayName = "属性--时间以及非类数组")]
             public void PropNotClassArray()
             {

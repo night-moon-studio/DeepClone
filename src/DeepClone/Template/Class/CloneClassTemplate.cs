@@ -3,6 +3,7 @@ using Natasha;
 using Natasha.Operator;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
@@ -12,8 +13,9 @@ namespace DeepClone.Template
     {
 
         internal readonly static int HashCode;
+        private CloneCtorTempalte CtorHandler;
         static CloneClassTemplate() => HashCode = typeof(CloneClassTemplate).GetHashCode();
-
+        
 
 
 
@@ -35,6 +37,9 @@ namespace DeepClone.Template
         public Delegate TypeRouter(NBuildInfo info)
         {
 
+            CtorHandler = new CloneCtorTempalte(info.DeclaringType);
+
+
             var builder = FastMethodOperator.New;
             //构造函数处理: 不存在public无参构造函数无法克隆;
             if (info.DeclaringType.GetConstructor(new Type[0]) == null)
@@ -43,11 +48,21 @@ namespace DeepClone.Template
             }
 
 
+            List<NBuildInfo> infos = new List<NBuildInfo>();
             StringBuilder scriptBuilder = new StringBuilder();
-            scriptBuilder.AppendLine($"if(old!=default){{ return new {info.DeclaringTypeName} {{");
             var memberBuilder = new StringBuilder();
             foreach (var fieldInfo in info.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
+
+                var ctorAttr = fieldInfo.GetCustomAttribute<NeedCtorAttribute>();
+                if (ctorAttr != default)
+                {
+                    NBuildInfo tempInfo = fieldInfo;
+                    tempInfo.DeclaringAvailableName = ctorAttr.Name == default ? fieldInfo.Name.ToUpper() : ctorAttr.Name.ToUpper();
+                    infos.Add(tempInfo);
+                }
+
+
                 if (!fieldInfo.IsInitOnly)
                 {
                     
@@ -60,14 +75,27 @@ namespace DeepClone.Template
                         builder.Using(fieldInfo.FieldType);
                         memberBuilder.Append($"{fieldInfo.Name}=CloneOperator.Clone(old.{fieldInfo.Name}),");
                     }
+
                 }
+
             }
 
 
             foreach (var propertyInfo in info.DeclaringType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
+
                 if (propertyInfo.CanWrite && propertyInfo.CanRead)
                 {
+
+                    var ctorAttr = propertyInfo.GetCustomAttribute<NeedCtorAttribute>();
+                    if (ctorAttr != default)
+                    {
+                        NBuildInfo tempInfo = propertyInfo;
+                        tempInfo.DeclaringAvailableName = ctorAttr.Name == default ? propertyInfo.Name.ToUpper() : ctorAttr.Name.ToUpper();
+                        infos.Add(tempInfo);
+                    }
+
+
                     if (propertyInfo.PropertyType.IsSimpleType())
                     {
                         memberBuilder.Append($"{propertyInfo.Name}=old.{propertyInfo.Name},");
@@ -77,10 +105,12 @@ namespace DeepClone.Template
                         builder.Using(propertyInfo.PropertyType);
                         memberBuilder.Append($"{propertyInfo.Name}=CloneOperator.Clone(old.{propertyInfo.Name}),");
                     }
+
                 }
+
             }
-
-
+            string readonlyScript = CtorHandler.GetCtor(infos);
+            scriptBuilder.Insert(0,$"if(old!=default){{ return new {info.DeclaringTypeName}({readonlyScript}) {{");
             if (memberBuilder.Length>0)
             {
                 memberBuilder.Length -= 1;

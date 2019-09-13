@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeepClone.Model;
+using System;
 using System.Collections.Generic;
 
 namespace NatashaUT.Model
@@ -48,12 +49,44 @@ namespace NatashaUT.Model
 
     public class PropCloneNormalModel
     {
+        public readonly bool NoUseCtor;
         public PropCloneNormalModel()
         {
-            ReadOnly = 1000;
+            NoUseCtor = true;
+            ReadOnly = 123;
+            ReadOnlyString = "2323";
+            ReadOnlyString1 = "3232";
+        }
+
+
+
+        public PropCloneNormalModel(string Readonly, string abc, string readonlyString1, string asds)
+        {
+
+            ReadOnlyString = abc;
+            ReadOnlyString1 = readonlyString1;
+
+        }
+
+        public PropCloneNormalModel(string Readonly, string abc, string asds)
+        {
+
+            ReadOnlyString = abc;
+
+        }
+        public PropCloneNormalModel(int Readonly)
+        {
+
+            ReadOnly = Readonly;
+
         }
         public const int Const = 100;
+        [NeedCtor]
         public readonly int ReadOnly;
+        [NeedCtor("abc")]
+        public readonly string ReadOnlyString;
+        [NeedCtor]
+        public readonly string ReadOnlyString1;
         public int Age;
         public string Name;
         public bool Title;
