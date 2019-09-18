@@ -37,6 +37,17 @@
 
 <br/>    
 
+### 团队成员：
+
+
+### 使用方法：
+
+```C#
+
+
+
+
+```
 
 ### 发布计划： 
   
@@ -53,13 +64,24 @@
  
 #### 首先编辑您的工程文件：
 
+
 ```C#
+
   <PropertyGroup>
+  
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <PreserveCompilationContext>true</PreserveCompilationContext>   <--- 一定要加上这句话
+    
+    //一定要加上这句话
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    
+    //WEB发布要加
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+    
   </PropertyGroup>
-```  
+ 
+```    
+
 <br/>  
 <br/>  
 
