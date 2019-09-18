@@ -40,6 +40,7 @@ namespace DeepCloneUT
         [Fact]
         public void ClassCloneTest()
         {
+
             var model = new TestModel
             {
                 B = "B",
