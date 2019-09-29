@@ -6,6 +6,8 @@ using Xunit;
 
 namespace DeepCloneUT
 {
+
+    
     public class TestModel
     {
         public readonly string A;
@@ -19,6 +21,13 @@ namespace DeepCloneUT
         public TestModel Self;
 
         public List<TestModel> SelfList;
+
+
+        public class InnerClass
+        {
+            public string Name;
+            public List<TestModel> SelfList;
+        }
     }
 
     public class TestModel1
@@ -62,5 +71,19 @@ namespace DeepCloneUT
             Assert.NotSame(model.SelfList, testModel.SelfList);
             Assert.Equal(model.SelfList[0].B, testModel.SelfList[0].B);
         }
+
+        [Fact]
+        public void ClassInnerTest()
+        {
+            TestModel.InnerClass model = new TestModel.InnerClass();
+            model.Name = "abc";
+            model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
+            var testModel = CloneOperator.Clone(model);
+            Assert.NotSame(model, testModel);
+            Assert.NotSame(model.SelfList, testModel.SelfList);
+            Assert.Equal(model.SelfList[0].B, testModel.SelfList[0].B);
+        }
     }
+
+
 }

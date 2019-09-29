@@ -5,9 +5,15 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Natasha\src\Natasha\Natasha.csproj" />
+  </ItemGroup>
+
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Natasha" Version="2.0.0-alpha.10" />
+    <Reference Include="Natasha">
+      <HintPath>..\..\..\Natasha\src\Natasha\bin\Debug\netstandard2.0\Natasha.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
