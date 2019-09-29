@@ -5,10 +5,6 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Natasha\src\Natasha\Natasha.csproj" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <Reference Include="Natasha">
