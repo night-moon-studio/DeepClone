@@ -5,6 +5,10 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.Natasha" Version="2.0.0.2" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Reference Include="Natasha">
