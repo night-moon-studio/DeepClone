@@ -113,7 +113,7 @@ namespace DeepCloneUT
         }
 
         [Fact]
-        public void ObjectInnerTest()
+        public void ObjectSourceTest()
         {
             object obj = new object();
             var testModel = ObjectCloneOperator.Clone(obj);
