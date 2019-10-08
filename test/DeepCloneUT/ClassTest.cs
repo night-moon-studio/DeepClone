@@ -72,17 +72,17 @@ namespace DeepCloneUT
             Assert.Equal(model.SelfList[0].B, testModel.SelfList[0].B);
         }
 
-        //[Fact]
-        //public void ClassInnerTest()
-        //{
-        //    TestModel.InnerClass model = new TestModel.InnerClass();
-        //    model.Name = "abc";
-        //    model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
-        //    var testModel = CloneOperator.Clone(model);
-        //    Assert.NotSame(model, testModel);
-        //    Assert.NotSame(model.SelfList, testModel.SelfList);
-        //    Assert.Equal(model.SelfList[0].B, testModel.SelfList[0].B);
-        //}
+        [Fact]
+        public void ClassInnerTest()
+        {
+            TestModel.InnerClass model = new TestModel.InnerClass();
+            model.Name = "abc";
+            model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
+            var testModel = CloneOperator.Clone(model);
+            Assert.NotSame(model, testModel);
+            Assert.NotSame(model.SelfList, testModel.SelfList);
+            Assert.Equal(model.SelfList[0].B, testModel.SelfList[0].B);
+        }
 
 
         [Fact]
@@ -121,18 +121,18 @@ namespace DeepCloneUT
             Assert.NotSame(obj, testModel);
         }
 
-        //[Fact]
-        //public void ObjectInnerTest()
-        //{
-        //    TestModel.InnerClass model = new TestModel.InnerClass();
-        //    model.Name = "abc";
-        //    model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
-        //    object obj = model;
-        //    var testModel = ObjectCloneOperator.Clone(obj);
-        //    Assert.NotSame(obj, testModel);
-        //    Assert.NotSame(model.SelfList, ((TestModel.InnerClass)testModel).SelfList);
-        //    Assert.Equal(model.SelfList[0].B, ((TestModel.InnerClass)testModel).SelfList[0].B);
-        //}
+        [Fact]
+        public void ObjectInnerTest()
+        {
+            TestModel.InnerClass model = new TestModel.InnerClass();
+            model.Name = "abc";
+            model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
+            object obj = model;
+            var testModel = ObjectCloneOperator.Clone(obj);
+            Assert.NotSame(obj, testModel);
+            Assert.NotSame(model.SelfList, ((TestModel.InnerClass)testModel).SelfList);
+            Assert.Equal(model.SelfList[0].B, ((TestModel.InnerClass)testModel).SelfList[0].B);
+        }
     }
 
 
