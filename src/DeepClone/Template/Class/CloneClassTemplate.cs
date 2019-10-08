@@ -37,6 +37,7 @@ namespace DeepClone.Template
         public Delegate TypeRouter(NBuildInfo info)
         {
 
+            HashSet<string> sets = new HashSet<string>();
             CtorHandler = new CloneCtorTempalte(info.DeclaringType);
 
 
@@ -53,6 +54,20 @@ namespace DeepClone.Template
             var memberBuilder = new StringBuilder();
             foreach (var fieldInfo in info.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
+
+                if (!sets.Contains(fieldInfo.Name))
+                {
+
+                    sets.Add(fieldInfo.Name);
+
+                }
+                else
+                {
+
+                    continue;
+
+                }
+
 
                 var ctorAttr = fieldInfo.GetCustomAttribute<NeedCtorAttribute>();
                 if (ctorAttr != default)
@@ -90,6 +105,20 @@ namespace DeepClone.Template
 
                 if (propertyInfo.CanWrite && propertyInfo.CanRead)
                 {
+
+                    if (!sets.Contains(propertyInfo.Name))
+                    {
+
+                        sets.Add(propertyInfo.Name);
+
+                    }
+                    else
+                    {
+
+                        continue;
+
+                    }
+
 
                     var ctorAttr = propertyInfo.GetCustomAttribute<NeedCtorAttribute>();
                     if (ctorAttr != default)
