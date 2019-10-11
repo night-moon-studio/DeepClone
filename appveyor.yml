@@ -40,7 +40,7 @@ for:
   #- ps: cd c:\projects\xxx
                 
   before_build:
-  - ps: dotnet restore
+  - ps: dotnet restore DeepClone.sln
   - ps: choco install opencover.portable
   - ps: choco install codecov
 
