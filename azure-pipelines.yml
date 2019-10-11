@@ -48,6 +48,7 @@ jobs:
     displayName: test
     inputs:
       command: test
+      projects: './DeepClone.sln
 
 
 
@@ -83,6 +84,7 @@ jobs:
     displayName: test
     inputs:
       command: test
+      projects: './DeepClone.sln
 
 
 
@@ -118,3 +120,4 @@ jobs:
     displayName: test
     inputs:
       command: test
+      projects: './DeepClone.sln
