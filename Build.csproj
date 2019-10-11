@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,10 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FlubuCore" Version="4.2.1" />
+    <PackageReference Include="FlubuCore" Version="4.2.7" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="dotnet-flubu" Version="4.2.1" />
+    <DotNetCliToolReference Include="dotnet-flubu" Version="4.2.7" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="output\" />
