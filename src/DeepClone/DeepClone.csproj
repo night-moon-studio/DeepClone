@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <Description>基于Natasha实现深度克隆，包括实体类、数组、集合、链表、字典等数据类型。 
+</Description>
+    <PackageId>DotNetCore.Natasha.DeepClone</PackageId>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageReleaseNotes>CloneOperator.Clone(instance);</PackageReleaseNotes>
+    <Version>0.1.0</Version>
+    <PackageLicenseUrl>https://github.com/night-moon-studio/DeepClone/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/night-moon-studio/DeepClone</PackageProjectUrl>
+    <PackageTags>DeepClone; Natasha; Roslyn;</PackageTags>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19404084</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
