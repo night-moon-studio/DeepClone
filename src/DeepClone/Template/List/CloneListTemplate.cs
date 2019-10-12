@@ -55,6 +55,12 @@ namespace DeepClone.Template
                     scriptBuilder.Append("item");
 
                 }
+                else if (parameters[0] == typeof(object))
+                {
+
+                    scriptBuilder.Append("ObjectCloneOperator.Clone(item)");
+
+                }
                 else
                 {
 

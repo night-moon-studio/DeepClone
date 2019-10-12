@@ -58,6 +58,12 @@ namespace DeepClone.Template
                 scriptBuilder.Append($"item.Key,");
 
             }
+            else if (keyType == typeof(object))
+            {
+
+                scriptBuilder.AppendLine($"ObjectCloneOperator.Clone(item.Key),");
+
+            }
             else
             {
 
@@ -72,6 +78,12 @@ namespace DeepClone.Template
             {
 
                 scriptBuilder.Append($"item.Value");
+
+            }
+            else if (keyType == typeof(object))
+            {
+
+                scriptBuilder.AppendLine($"ObjectCloneOperator.Clone(item.Value),");
 
             }
             else

@@ -30,7 +30,15 @@ namespace DeepCloneUT
 
         public int B { get; set; }
     }
-
+    public class Parent
+    {
+        public string A { get; set; }
+        public string B { get; set; }
+    }
+    public class Child : Parent
+    {
+        public new int B { get; set; }
+    }
     public class ListTest
     {
         [Fact]
@@ -60,6 +68,33 @@ namespace DeepCloneUT
 
             //var tt = CloneOperator.Clone(lli);
             //Console.WriteLine(tt == null);
+        }
+
+        [Fact]
+        public void ListCloneWithChildClassInstanceTest()
+        {
+            var list = new List<Parent>(){
+                new Parent(){A="1",B="1"},
+                new Child(){A="1",B=1}
+            };
+            var cloneList = CloneOperator.Clone(list);
+            Assert.IsType<Child>(list[1]);
+            Assert.IsType<Parent>(cloneList[1]);
+            Assert.NotEqual(list[1].GetType(), cloneList[1].GetType());
+            Assert.Equal(((Parent)list[1]).B, ((Parent)cloneList[1]).B);
+            Assert.Equal(default, cloneList[1].B);
+        }
+
+        [Fact]
+        public void CloneWithChildClassInstanceTest()
+        {
+            Parent p = new Child() { A = "1", B = 1 };
+            Parent cloneP = CloneOperator.Clone(p);
+            Assert.IsType<Child>(p);
+            Assert.Equal(default, p.B);
+            Assert.Equal(1, ((Child)p).B);
+            Assert.IsType<Parent>(cloneP);
+            Assert.NotSame(p, cloneP);
         }
     }
 }

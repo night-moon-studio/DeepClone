@@ -15,7 +15,7 @@ namespace DeepClone.Template
         internal readonly static int HashCode;
         private CloneCtorTempalte CtorHandler;
         static CloneClassTemplate() => HashCode = typeof(CloneClassTemplate).GetHashCode();
-        
+
 
 
 
@@ -37,6 +37,7 @@ namespace DeepClone.Template
         public Delegate TypeRouter(NBuildInfo info)
         {
 
+            HashSet<string> sets = new HashSet<string>();
             CtorHandler = new CloneCtorTempalte(info.DeclaringType);
 
 
@@ -54,6 +55,20 @@ namespace DeepClone.Template
             foreach (var fieldInfo in info.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
 
+                if (!sets.Contains(fieldInfo.Name))
+                {
+
+                    sets.Add(fieldInfo.Name);
+
+                }
+                else
+                {
+
+                    continue;
+
+                }
+
+
                 var ctorAttr = fieldInfo.GetCustomAttribute<NeedCtorAttribute>();
                 if (ctorAttr != default)
                 {
@@ -65,10 +80,14 @@ namespace DeepClone.Template
 
                 if (!fieldInfo.IsInitOnly)
                 {
-                    
+
                     if (fieldInfo.FieldType.IsSimpleType())
                     {
                         memberBuilder.Append($"{fieldInfo.Name}=old.{fieldInfo.Name},");
+                    }
+                    else if (fieldInfo.FieldType == typeof(object))
+                    {
+                        memberBuilder.Append($"{fieldInfo.Name}=ObjectCloneOperator.Clone(old.{fieldInfo.Name}),");
                     }
                     else
                     {
@@ -87,6 +106,20 @@ namespace DeepClone.Template
                 if (propertyInfo.CanWrite && propertyInfo.CanRead)
                 {
 
+                    if (!sets.Contains(propertyInfo.Name))
+                    {
+
+                        sets.Add(propertyInfo.Name);
+
+                    }
+                    else
+                    {
+
+                        continue;
+
+                    }
+
+
                     var ctorAttr = propertyInfo.GetCustomAttribute<NeedCtorAttribute>();
                     if (ctorAttr != default)
                     {
@@ -100,6 +133,10 @@ namespace DeepClone.Template
                     {
                         memberBuilder.Append($"{propertyInfo.Name}=old.{propertyInfo.Name},");
                     }
+                    else if (propertyInfo.PropertyType == typeof(object))
+                    {
+                        memberBuilder.Append($"{propertyInfo.Name}=ObjectCloneOperator.Clone(old.{propertyInfo.Name}),");
+                    }
                     else
                     {
                         builder.Using(propertyInfo.PropertyType);
@@ -110,13 +147,13 @@ namespace DeepClone.Template
 
             }
             string readonlyScript = CtorHandler.GetCtor(infos);
-            scriptBuilder.Insert(0,$"if(old!=default){{ return new {info.DeclaringTypeName}({readonlyScript}) {{");
-            if (memberBuilder.Length>0)
+            scriptBuilder.Insert(0, $"if(old!=default){{ return new {info.DeclaringTypeName}({readonlyScript}) {{");
+            if (memberBuilder.Length > 0)
             {
                 memberBuilder.Length -= 1;
                 scriptBuilder.Append(memberBuilder);
             }
-            
+
 
             scriptBuilder.Append("};}return default;");
 
