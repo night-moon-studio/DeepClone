@@ -4,13 +4,13 @@ using System.Collections.Concurrent;
 
 namespace DeepClone
 {
-    public static class FullCloneOperator
+    public static class CloneOperator
     {
 
         public static T Clone<T>(T instance)
         {
 
-            return FullCloneOperator<T>.Clone(instance);
+            return CloneOperator<T>.Clone(instance);
 
         }
 
@@ -18,11 +18,11 @@ namespace DeepClone
 
 
 
-    public static class FullCloneOperator<T>
+    public static class CloneOperator<T>
     {
 
         public readonly static ConcurrentDictionary<Type, Func<T, T>> CloneMapping;
-        static FullCloneOperator() => CloneMapping = new ConcurrentDictionary<Type, Func<T, T>>();
+        static CloneOperator() => CloneMapping = new ConcurrentDictionary<Type, Func<T, T>>();
 
 
 
