@@ -10,11 +10,11 @@ using System.Text;
 namespace DeepClone.Template
 {
 
-    public class CloneListTemplate : ICloneTemplate
+    public class FastCloneListTemplate : ICloneTemplate
     {
 
         internal readonly static int HashCode;
-        static CloneListTemplate() => HashCode = typeof(CloneListTemplate).GetHashCode();
+        static FastCloneListTemplate() => HashCode = typeof(FastCloneListTemplate).GetHashCode();
 
         public override int GetHashCode() => HashCode;
 
@@ -58,13 +58,13 @@ namespace DeepClone.Template
                 else if (parameters[0] == typeof(object))
                 {
 
-                    scriptBuilder.Append("ObjectCloneOperator.Clone(item)");
+                    scriptBuilder.Append("FastObjectCloneOperator.Clone(item)");
 
                 }
                 else
                 {
 
-                    scriptBuilder.Append("CloneOperator.Clone(item)");
+                    scriptBuilder.Append("FastCloneOperator.Clone(item)");
 
                 }
                 scriptBuilder.Append("));");

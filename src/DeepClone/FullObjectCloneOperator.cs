@@ -6,11 +6,11 @@ using System.Text;
 
 namespace DeepClone
 {
-    public static class ObjectCloneOperator
+    public static class FullObjectCloneOperator
     {
 
         public readonly static ConcurrentDictionary<Type, Func<object,object>> MethodCache;
-        static ObjectCloneOperator()
+        static FullObjectCloneOperator()
         {
             MethodCache = new ConcurrentDictionary<Type, Func<object,object>>();
         }
@@ -43,9 +43,10 @@ namespace DeepClone
                 else
                 {
 
-                    var func = ObjectCloneBuilder.Create(type);
+                    var func = FullObjectCloneBuilder.Create(type);
                     MethodCache[type] = func;
                     return func(instance);
+
                 }
 
             }

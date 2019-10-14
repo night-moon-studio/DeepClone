@@ -59,7 +59,7 @@ namespace DeepCloneUT
                 SelfList = new List<TestModel> { new TestModel { B = "l" } }
 
             };
-            var testModel=CloneOperator.Clone(model);
+            var testModel=FastCloneOperator.Clone(model);
             Assert.NotSame(model, testModel);
             Assert.Equal(model.B, testModel.B);
             Assert.NotNull(model.Model1);
@@ -78,7 +78,7 @@ namespace DeepCloneUT
             TestModel.InnerClass model = new TestModel.InnerClass();
             model.Name = "abc";
             model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
-            var testModel = CloneOperator.Clone(model);
+            var testModel = FastCloneOperator.Clone(model);
             Assert.NotSame(model, testModel);
             Assert.NotSame(model.SelfList, testModel.SelfList);
             Assert.Equal(model.SelfList[0].B, testModel.SelfList[0].B);
@@ -99,7 +99,7 @@ namespace DeepCloneUT
 
             };
             object obj = model;
-            var testModel = ObjectCloneOperator.Clone(obj);
+            var testModel = FastObjectCloneOperator.Clone(obj);
             Assert.NotSame(model, testModel);
             Assert.Equal(model.B, ((TestModel)testModel).B);
             Assert.NotNull(model.Model1);
@@ -116,7 +116,7 @@ namespace DeepCloneUT
         public void ObjectSourceTest()
         {
             object obj = new object();
-            var testModel = ObjectCloneOperator.Clone(obj);
+            var testModel = FastObjectCloneOperator.Clone(obj);
             Assert.NotNull(testModel);
             Assert.NotSame(obj, testModel);
         }
@@ -128,7 +128,7 @@ namespace DeepCloneUT
             model.Name = "abc";
             model.SelfList = new List<TestModel> { new TestModel { B = "l" } };
             object obj = model;
-            var testModel = ObjectCloneOperator.Clone(obj);
+            var testModel = FastObjectCloneOperator.Clone(obj);
             Assert.NotSame(obj, testModel);
             Assert.NotSame(model.SelfList, ((TestModel.InnerClass)testModel).SelfList);
             Assert.Equal(model.SelfList[0].B, ((TestModel.InnerClass)testModel).SelfList[0].B);

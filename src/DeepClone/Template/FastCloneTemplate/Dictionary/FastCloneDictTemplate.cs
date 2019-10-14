@@ -8,11 +8,11 @@ using System.Text;
 
 namespace DeepClone.Template
 {
-    public class CloneDictTemplate : ICloneTemplate
+    public class FastCloneDictTemplate : ICloneTemplate
     {
 
         internal readonly static int HashCode;
-        static CloneDictTemplate() => HashCode = typeof(CloneDictTemplate).GetHashCode();
+        static FastCloneDictTemplate() => HashCode = typeof(FastCloneDictTemplate).GetHashCode();
 
 
 
@@ -61,13 +61,13 @@ namespace DeepClone.Template
             else if (keyType == typeof(object))
             {
 
-                scriptBuilder.AppendLine($"ObjectCloneOperator.Clone(item.Key),");
+                scriptBuilder.AppendLine($"FastObjectCloneOperator.Clone(item.Key),");
 
             }
             else
             {
 
-                scriptBuilder.AppendLine($"CloneOperator.Clone(item.Key),");
+                scriptBuilder.AppendLine($"FastCloneOperator.Clone(item.Key),");
 
             }
 
@@ -83,13 +83,13 @@ namespace DeepClone.Template
             else if (keyType == typeof(object))
             {
 
-                scriptBuilder.AppendLine($"ObjectCloneOperator.Clone(item.Value),");
+                scriptBuilder.AppendLine($"FastObjectCloneOperator.Clone(item.Value),");
 
             }
             else
             {
 
-                scriptBuilder.AppendLine($"CloneOperator.Clone(item.Value)");
+                scriptBuilder.AppendLine($"FastCloneOperator.Clone(item.Value)");
 
             }
 

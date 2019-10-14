@@ -9,12 +9,12 @@ using System.Text;
 
 namespace DeepClone.Template
 {
-    public class CloneClassTemplate : ICloneTemplate
+    public class FastCloneClassTemplate : ICloneTemplate
     {
 
         internal readonly static int HashCode;
-        private CloneCtorTempalte CtorHandler;
-        static CloneClassTemplate() => HashCode = typeof(CloneClassTemplate).GetHashCode();
+        private FastCloneCtorTempalte CtorHandler;
+        static FastCloneClassTemplate() => HashCode = typeof(FastCloneClassTemplate).GetHashCode();
 
 
 
@@ -38,7 +38,7 @@ namespace DeepClone.Template
         {
 
             HashSet<string> sets = new HashSet<string>();
-            CtorHandler = new CloneCtorTempalte(info.DeclaringType);
+            CtorHandler = new FastCloneCtorTempalte(info.DeclaringType);
 
 
             var builder = FastMethodOperator.New;
@@ -87,12 +87,12 @@ namespace DeepClone.Template
                     }
                     else if (fieldInfo.FieldType == typeof(object))
                     {
-                        memberBuilder.Append($"{fieldInfo.Name}=ObjectCloneOperator.Clone(old.{fieldInfo.Name}),");
+                        memberBuilder.Append($"{fieldInfo.Name}=FastObjectCloneOperator.Clone(old.{fieldInfo.Name}),");
                     }
                     else
                     {
                         builder.Using(fieldInfo.FieldType);
-                        memberBuilder.Append($"{fieldInfo.Name}=CloneOperator.Clone(old.{fieldInfo.Name}),");
+                        memberBuilder.Append($"{fieldInfo.Name}=FastCloneOperator.Clone(old.{fieldInfo.Name}),");
                     }
 
                 }
@@ -135,12 +135,12 @@ namespace DeepClone.Template
                     }
                     else if (propertyInfo.PropertyType == typeof(object))
                     {
-                        memberBuilder.Append($"{propertyInfo.Name}=ObjectCloneOperator.Clone(old.{propertyInfo.Name}),");
+                        memberBuilder.Append($"{propertyInfo.Name}=FastObjectCloneOperator.Clone(old.{propertyInfo.Name}),");
                     }
                     else
                     {
                         builder.Using(propertyInfo.PropertyType);
-                        memberBuilder.Append($"{propertyInfo.Name}=CloneOperator.Clone(old.{propertyInfo.Name}),");
+                        memberBuilder.Append($"{propertyInfo.Name}=FastCloneOperator.Clone(old.{propertyInfo.Name}),");
                     }
 
                 }

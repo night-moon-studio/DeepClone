@@ -6,12 +6,12 @@ using System.Text;
 namespace DeepClone.Builder
 {
 
-    public static class ObjectCloneBuilder
+    public static class FullObjectCloneBuilder
     {
 
         public static Func<object, object> Create(Type type)
         {
-            return NFunc<object, object>.Delegate($"return CloneOperator.Clone(({type.GetDevelopName()})arg);", type, "DeepClone");
+            return NFunc<object, object>.Delegate($"return FullCloneOperator.Clone(({type.GetDevelopName()})arg);", type, "DeepClone");
         }
 
     }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DeepClone.Template
 {
-    public class CloneCtorTempalte
+    public class FastCloneCtorTempalte
     {
 
 
@@ -16,7 +16,7 @@ namespace DeepClone.Template
         private Dictionary<Dictionary<string, Type>, int> _values;
 
 
-        public CloneCtorTempalte(Type type)
+        public FastCloneCtorTempalte(Type type)
         {
 
             _ctors = new HashSet<Dictionary<string, Type>>();

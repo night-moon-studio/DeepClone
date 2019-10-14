@@ -7,10 +7,10 @@ using Natasha.Operator;
 
 namespace DeepClone.Template
 {
-    public class CloneArrayTemplate : ICloneTemplate
+    public class FullCloneArrayTemplate : ICloneTemplate
     {
         internal readonly static int HashCode;
-        static CloneArrayTemplate() => HashCode = typeof(CloneArrayTemplate).GetHashCode();
+        static FullCloneArrayTemplate() => HashCode = typeof(FullCloneArrayTemplate).GetHashCode();
 
         public override int GetHashCode() => HashCode;
 
@@ -67,7 +67,7 @@ namespace DeepClone.Template
                                                         , oldIns.Length
                                                         );
                     for (int i = 0; i < newIns.Length; i++)
-                        newIns[i] = CloneOperator.Clone(oldIns[i]);
+                        newIns[i] = FullCloneOperator.Clone(oldIns[i]);
                     return newIns;
                 ";
             return methodBody;
@@ -100,7 +100,7 @@ namespace DeepClone.Template
                 if(oldIns==default) return default;
                 {info.DeclaringTypeName} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
                 {sb.ToString()}
-                    newIns[{varNameStr}] = CloneOperator.Clone(oldIns[{varNameStr}]);
+                    newIns[{varNameStr}] = FullCloneOperator.Clone(oldIns[{varNameStr}]);
                 return newIns;
             ";
             return methodBody;
