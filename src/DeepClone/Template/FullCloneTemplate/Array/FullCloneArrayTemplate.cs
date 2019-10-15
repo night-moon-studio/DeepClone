@@ -43,9 +43,9 @@ namespace DeepClone.Template
             var action = FastMethodOperator.New
                             .Using("DeepClone")
                             .Using(typeof(Array))
-                            .Param(info.DeclaringType, "oldIns")
+                            .Param(info.CurrentType, "oldIns")
                             .MethodBody(methodBody)
-                            .Return(info.DeclaringType)
+                            .Return(info.CurrentType)
                             .Complie();
 
             return action;
@@ -61,13 +61,13 @@ namespace DeepClone.Template
         {
             var methodBody = $@"
                     if(oldIns==default) return default;
-                    {info.DeclaringTypeName} newIns = 
-                        ({info.DeclaringTypeName})Array.CreateInstance(
+                    {info.CurrentTypeName} newIns = 
+                        ({info.CurrentTypeName})Array.CreateInstance(
                                                         typeof({info.ElementTypeName})
                                                         , oldIns.Length
                                                         );
                     for (int i = 0; i < newIns.Length; i++)
-                        newIns[i] = FullCloneOperator.Clone(oldIns[i]);
+                        newIns[i] = CloneOperator.Clone(oldIns[i]);
                     return newIns;
                 ";
             return methodBody;
@@ -98,9 +98,9 @@ namespace DeepClone.Template
 
             var methodBody = $@"
                 if(oldIns==default) return default;
-                {info.DeclaringTypeName} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
+                {info.CurrentTypeName} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
                 {sb.ToString()}
-                    newIns[{varNameStr}] = FullCloneOperator.Clone(oldIns[{varNameStr}]);
+                    newIns[{varNameStr}] = CloneOperator.Clone(oldIns[{varNameStr}]);
                 return newIns;
             ";
             return methodBody;
@@ -130,7 +130,7 @@ namespace DeepClone.Template
 
                 sb.AppendLine($@"
                         if(oldIns==default) return default;
-                        {info.DeclaringTypeName} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
+                        {info.CurrentTypeName} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
                         Array.Copy(oldIns, newIns, newIns.Length);
                         return newIns;
                     ");
@@ -144,7 +144,7 @@ namespace DeepClone.Template
                 var arrItem = Enumerable.Repeat("[]", info.ArrayLayer - 1);
                 sb.AppendLine($@"
                         if(oldIns==default) return default;
-                        {info.DeclaringTypeName} newIns = new {info.ArrayBaseTypeName}[oldIns.Length]{string.Join(string.Empty, arrItem)};
+                        {info.CurrentTypeName} newIns = new {info.ArrayBaseTypeName}[oldIns.Length]{string.Join(string.Empty, arrItem)};
                         Array.Copy(oldIns, newIns, newIns.Length);
                         return newIns;
                     ");

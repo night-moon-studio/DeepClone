@@ -30,15 +30,7 @@ namespace DeepCloneUT
 
         public int B { get; set; }
     }
-    public class Parent
-    {
-        public string A { get; set; }
-        public string B { get; set; }
-    }
-    public class Child : Parent
-    {
-        public new int B { get; set; }
-    }
+
     public class ListTest
     {
         [Fact]

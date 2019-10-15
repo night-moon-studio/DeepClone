@@ -40,10 +40,10 @@ namespace DeepClone.Template
 
 
             //初始化目标，区分实体类和接口
-            if (!info.DeclaringType.IsInterface)
+            if (!info.CurrentType.IsInterface)
             {
 
-                scriptBuilder.AppendLine($"new {info.DeclaringTypeName}");
+                scriptBuilder.AppendLine($"new {info.CurrentTypeName}");
 
             }
            scriptBuilder.AppendLine("(old.Select(item=>KeyValuePair.Create(");
@@ -51,7 +51,7 @@ namespace DeepClone.Template
 
 
             //克隆Key
-            var keyType = info.DeclaringType.GetGenericArguments()[0];
+            var keyType = info.CurrentType.GetGenericArguments()[0];
             if (keyType.IsSimpleType())
             {
 
@@ -67,13 +67,13 @@ namespace DeepClone.Template
             else
             {
 
-                scriptBuilder.AppendLine($"FullCloneOperator.Clone(item.Key),");
+                scriptBuilder.AppendLine($"CloneOperator.Clone(item.Key),");
 
             }
 
 
             //克隆Value
-            var valueType = info.DeclaringType.GetGenericArguments()[1];
+            var valueType = info.CurrentType.GetGenericArguments()[1];
             if (valueType.IsSimpleType())
             {
 
@@ -89,7 +89,7 @@ namespace DeepClone.Template
             else
             {
 
-                scriptBuilder.AppendLine($"FullCloneOperator.Clone(item.Value)");
+                scriptBuilder.AppendLine($"CloneOperator.Clone(item.Value)");
 
             }
 
@@ -103,9 +103,9 @@ namespace DeepClone.Template
                             .Using("System.Linq")
                             .Using(typeof(IDictionary))
                             .Using(typeof(KeyValuePair<,>))
-                            .Param(info.DeclaringType, "old")
+                            .Param(info.CurrentType, "old")
                             .MethodBody(scriptBuilder.ToString())
-                            .Return(info.DeclaringType)
+                            .Return(info.CurrentType)
                             .Complie();
             return action;
 

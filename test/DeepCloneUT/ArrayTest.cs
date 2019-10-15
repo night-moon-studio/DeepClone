@@ -129,7 +129,7 @@ namespace DeepCloneUT
             Assert.Equal(arrIns6_Clone, arrIns6);
             Assert.Equal(arrIns7_Clone, arrIns7);
             Assert.Equal(arrIns8_Clone, arrIns8);
-            Assert.Equal(arrIns9_Clone, arrIns9);
+            Assert.Equal(arrIns9_Clone, arrIns9); 
             Assert.Equal(arrIns10_Clone, arrIns10);
             Assert.Equal(arrIns11_Clone, arrIns11);
             Assert.Equal(arrIns12_Clone, arrIns12);

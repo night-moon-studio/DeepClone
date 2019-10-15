@@ -32,23 +32,23 @@ namespace DeepClone.Template
         public Delegate TypeRouter(NBuildInfo info)
         {
 
-            if (info.DeclaringType.IsGenericType)
+            if (info.CurrentType.IsGenericType)
             {
 
                 StringBuilder scriptBuilder = new StringBuilder();
                 scriptBuilder.AppendLine(@"if(old!=default){ return ");
 
                 // 初始化目标，区分实体类和接口
-                if (!info.DeclaringType.IsInterface)
+                if (!info.CurrentType.IsInterface)
                 {
 
-                    scriptBuilder.AppendLine($"new {info.DeclaringTypeName}");
+                    scriptBuilder.AppendLine($"new {info.CurrentTypeName}");
 
                 }
 
 
                 scriptBuilder.AppendLine("(old.Select(item=>");
-                var parameters = info.DeclaringType.GetGenericArguments();
+                var parameters = info.CurrentType.GetGenericArguments();
                 if (parameters[0].IsSimpleType())
                 {
 
@@ -64,7 +64,7 @@ namespace DeepClone.Template
                 else
                 {
 
-                    scriptBuilder.Append("FullCloneOperator.Clone(item)");
+                    scriptBuilder.Append("CloneOperator.Clone(item)");
 
                 }
                 scriptBuilder.Append("));");
@@ -74,9 +74,9 @@ namespace DeepClone.Template
                 var action = FastMethodOperator.New
                                 .Using("DeepClone")
                                 .Using("System.Linq")
-                                .Param(info.DeclaringType, "old")
+                                .Param(info.CurrentType, "old")
                                 .MethodBody(scriptBuilder.ToString())
-                                .Return(info.DeclaringType)
+                                .Return(info.CurrentType)
                                 .Complie();
                 return action;
 

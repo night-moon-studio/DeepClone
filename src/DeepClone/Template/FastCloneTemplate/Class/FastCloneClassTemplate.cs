@@ -37,117 +37,79 @@ namespace DeepClone.Template
         public Delegate TypeRouter(NBuildInfo info)
         {
 
-            HashSet<string> sets = new HashSet<string>();
-            CtorHandler = new FastCloneCtorTempalte(info.DeclaringType);
+            CtorHandler = new FastCloneCtorTempalte(info.CurrentType);
 
-
+            StringBuilder scriptBuilder = new StringBuilder();
+            var memberBuilder = new StringBuilder();
             var builder = FastMethodOperator.New;
             //构造函数处理: 不存在public无参构造函数无法克隆;
-            if (info.DeclaringType.GetConstructor(new Type[0]) == null)
+            if (info.CurrentType.GetConstructor(new Type[0]) == null)
             {
                 return default;
             }
 
-
-            List<NBuildInfo> infos = new List<NBuildInfo>();
-            StringBuilder scriptBuilder = new StringBuilder();
-            var memberBuilder = new StringBuilder();
-            foreach (var fieldInfo in info.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public))
+            var members = NBuildInfo.GetInfos(info.CurrentType);
+            foreach (var item in members)
             {
 
-                if (!sets.Contains(fieldInfo.Name))
+                var member = item.Value;
+                if (member==null)
                 {
-
-                    sets.Add(fieldInfo.Name);
-
-                }
-                else
-                {
-
                     continue;
-
                 }
 
+
+                if (member.CanWrite && member.CanRead && !member.IsStatic)
+                {
+                    if (member.MemberType.IsSimpleType())
+                    {
+                        memberBuilder.Append($"{member.MemberName}=old.{member.MemberName},");
+                    }
+                    else if (member.MemberType == typeof(object))
+                    {
+                        memberBuilder.Append($"{member.MemberName}=FastObjectCloneOperator.Clone(old.{member.MemberName}),");
+                    }
+                    else
+                    {
+                        builder.Using(member.MemberType);
+                        memberBuilder.Append($"{member.MemberName}=FastCloneOperator.Clone(old.{member.MemberName}),");
+                    }
+
+                }
+            }
+
+
+            List<NBuildInfo> infos = new List<NBuildInfo>();
+            
+           
+            foreach (var fieldInfo in info.CurrentType.GetFields(BindingFlags.Instance | BindingFlags.Public))
+            {
 
                 var ctorAttr = fieldInfo.GetCustomAttribute<NeedCtorAttribute>();
                 if (ctorAttr != default)
                 {
                     NBuildInfo tempInfo = fieldInfo;
-                    tempInfo.DeclaringAvailableName = ctorAttr.Name == default ? fieldInfo.Name.ToUpper() : ctorAttr.Name.ToUpper();
+                    tempInfo.MemberTypeAvailableName = ctorAttr.Name == default ? fieldInfo.Name.ToUpper() : ctorAttr.Name.ToUpper();
                     infos.Add(tempInfo);
                 }
 
-
-                if (!fieldInfo.IsInitOnly)
-                {
-
-                    if (fieldInfo.FieldType.IsSimpleType())
-                    {
-                        memberBuilder.Append($"{fieldInfo.Name}=old.{fieldInfo.Name},");
-                    }
-                    else if (fieldInfo.FieldType == typeof(object))
-                    {
-                        memberBuilder.Append($"{fieldInfo.Name}=FastObjectCloneOperator.Clone(old.{fieldInfo.Name}),");
-                    }
-                    else
-                    {
-                        builder.Using(fieldInfo.FieldType);
-                        memberBuilder.Append($"{fieldInfo.Name}=FastCloneOperator.Clone(old.{fieldInfo.Name}),");
-                    }
-
-                }
-
             }
 
-
-            foreach (var propertyInfo in info.DeclaringType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            foreach (var propertyInfo in info.CurrentType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
 
-                if (propertyInfo.CanWrite && propertyInfo.CanRead)
+                var ctorAttr = propertyInfo.GetCustomAttribute<NeedCtorAttribute>();
+                if (ctorAttr != default)
                 {
-
-                    if (!sets.Contains(propertyInfo.Name))
-                    {
-
-                        sets.Add(propertyInfo.Name);
-
-                    }
-                    else
-                    {
-
-                        continue;
-
-                    }
-
-
-                    var ctorAttr = propertyInfo.GetCustomAttribute<NeedCtorAttribute>();
-                    if (ctorAttr != default)
-                    {
-                        NBuildInfo tempInfo = propertyInfo;
-                        tempInfo.DeclaringAvailableName = ctorAttr.Name == default ? propertyInfo.Name.ToUpper() : ctorAttr.Name.ToUpper();
-                        infos.Add(tempInfo);
-                    }
-
-
-                    if (propertyInfo.PropertyType.IsSimpleType())
-                    {
-                        memberBuilder.Append($"{propertyInfo.Name}=old.{propertyInfo.Name},");
-                    }
-                    else if (propertyInfo.PropertyType == typeof(object))
-                    {
-                        memberBuilder.Append($"{propertyInfo.Name}=FastObjectCloneOperator.Clone(old.{propertyInfo.Name}),");
-                    }
-                    else
-                    {
-                        builder.Using(propertyInfo.PropertyType);
-                        memberBuilder.Append($"{propertyInfo.Name}=FastCloneOperator.Clone(old.{propertyInfo.Name}),");
-                    }
-
+                    NBuildInfo tempInfo = propertyInfo;
+                    tempInfo.MemberTypeAvailableName = ctorAttr.Name == default ? propertyInfo.Name.ToUpper() : ctorAttr.Name.ToUpper();
+                    infos.Add(tempInfo);
                 }
 
             }
+
             string readonlyScript = CtorHandler.GetCtor(infos);
-            scriptBuilder.Insert(0, $"if(old!=default){{ return new {info.DeclaringTypeName}({readonlyScript}) {{");
+            scriptBuilder.Insert(0, $"if(old!=default){{ return new {info.CurrentTypeName}({readonlyScript}) {{");
             if (memberBuilder.Length > 0)
             {
                 memberBuilder.Length -= 1;
@@ -159,9 +121,9 @@ namespace DeepClone.Template
 
             var func = builder
                 .Using("DeepClone")
-                .Param(info.DeclaringType, "old")
+                .Param(info.CurrentType, "old")
                 .MethodBody(scriptBuilder.ToString())
-                .Return(info.DeclaringType)
+                .Return(info.CurrentType)
                 .Complie();
             return func;
         }

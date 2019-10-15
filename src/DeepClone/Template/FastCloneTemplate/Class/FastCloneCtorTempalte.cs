@@ -61,10 +61,11 @@ namespace DeepClone.Template
                 foreach (var info in infos)
                 {
 
-                    if (item.ContainsKey(info.DeclaringAvailableName))
+                    var name = info.MemberTypeAvailableName;
+                    if (item.ContainsKey(name))
                     {
 
-                        if (item[info.DeclaringAvailableName] == info.MemberType)
+                        if (item[name] == info.MemberType)
                         {
                             value += 1;
                         }
@@ -91,7 +92,7 @@ namespace DeepClone.Template
                 foreach (var item in infos)
                 {
 
-                    var name = item.DeclaringAvailableName;
+                    var name = item.MemberTypeAvailableName;
                     if (cache.ContainsKey(name))
                     {
 

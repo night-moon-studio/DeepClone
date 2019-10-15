@@ -46,9 +46,9 @@ namespace DeepClone.Template
 
             foreach (var item in _handlers)
             {
-                if (item.MatchType(info.DeclaringType))
+                if (item.MatchType(info.CurrentType))
                 {
-                    return item.TypeRouter(info.DeclaringType);
+                    return item.TypeRouter(info);
                 }
             }
             return default;

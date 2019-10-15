@@ -1,4 +1,5 @@
 ﻿using DeepClone.Template;
+using Natasha;
 using System;
 
 namespace DeepClone.Builder
@@ -8,7 +9,7 @@ namespace DeepClone.Builder
     {
         public static Func<T, T> Create(Type realType)
         {
-            return (Func<T, T>)(new FullCloneBuilder()).Create(realType);
+            return (Func<T, T>)(new FullCloneBuilder()).Create<T>(realType);
         }
     }
 
@@ -23,9 +24,11 @@ namespace DeepClone.Builder
             Register<FullCloneClassTemplate>();
         }
 
-        public Delegate Create(Type type)
+        public Delegate Create<T>(Type type)
         {
-            return TypeRouter(type);
+            NBuildInfo info = type;
+            info.FatherType = typeof(T);
+            return TypeRouter(info);
         }
 
     }

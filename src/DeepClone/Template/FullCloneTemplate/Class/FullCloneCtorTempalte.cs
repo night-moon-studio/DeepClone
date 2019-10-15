@@ -25,21 +25,28 @@ namespace DeepClone.Template
             var temp = type.GetConstructors();
 
 
+            //获取所有构造函数
             for (int i = 0; i < temp.Length; i++)
             {
 
                 var dict = new Dictionary<string, Type>();
                 _ctors.Add(dict);
-                _parametersMapping[dict] = new Dictionary<string, string>();
+              
+
+                //匹配频次字典
                 _values[dict] = 0;
+
+
+                //初始化构造字典
+                _parametersMapping[dict] = new Dictionary<string, string>();
                 var parameters = temp[i].GetParameters();
-
-
                 foreach (var item in parameters)
                 {
 
+                    //缓存构造信息
                     dict[item.Name.ToUpper()] = item.ParameterType;
                     _parametersMapping[dict][item.Name.ToUpper()] = item.Name;
+
                 }
 
             }
@@ -58,14 +65,19 @@ namespace DeepClone.Template
             {
 
                 int value = 0;
+
+                //遍历符合条件的成员
                 foreach (var info in infos)
                 {
 
-                    if (item.ContainsKey(info.DeclaringAvailableName))
+                    //从参数缓存中查找是否存在该类型
+                    var name = info.MemberTypeAvailableName;
+                    if (item.ContainsKey(name))
                     {
 
-                        if (item[info.DeclaringAvailableName] == info.MemberType)
+                        if (item[name] == info.MemberType)
                         {
+                            //频次+1
                             value += 1;
                         }
 
@@ -76,6 +88,7 @@ namespace DeepClone.Template
 
                 if (preResult < value)
                 {
+                    //选择最大的匹配节点
                     preResult = value;
                     pairs = item;
                 }
@@ -86,15 +99,20 @@ namespace DeepClone.Template
             if (pairs != default)
             {
 
+                //通过最高频次的匹配字典找到参数真名缓存
                 var cache = _parametersMapping[pairs];
+
+
+                //生成脚本
                 StringBuilder scriptBuilder = new StringBuilder();
                 foreach (var item in infos)
                 {
 
-                    var name = item.DeclaringAvailableName;
+                    var name = item.MemberName;
                     if (cache.ContainsKey(name))
                     {
 
+                        //如果名字和类型都匹配上了
                         if (pairs[name] == item.MemberType)
                         {
                             scriptBuilder.Append($"{cache[name]}:old.{item.MemberName},");
@@ -107,6 +125,7 @@ namespace DeepClone.Template
                 }
 
 
+                //没匹配上的都传default
                 foreach (var item in pairs)
                 {
                     scriptBuilder.Append($"{cache[item.Key]}:default,");
