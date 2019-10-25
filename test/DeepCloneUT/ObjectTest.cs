@@ -19,28 +19,28 @@ namespace DeepCloneUT
         {
             //System.ValueType
             Object obj = 1;
-            var objNew=FastCloneOperator.Clone(obj);
-            Assert.NotSame(obj, objNew);
+            var objNew=FastObjectCloneOperator.Clone(obj);
+            Assert.Same(obj, objNew);
             Assert.Equal(obj,objNew);
             //class
             object objA = new TestModel() { A = 2 };
-            object objB = FastCloneOperator.Clone(objA);
+            object objB = FastObjectCloneOperator.Clone(objA);
             Assert.NotNull(objB);
             Assert.NotSame(objA, objB);
             Assert.Equal(((TestModel)objA).A, ((TestModel)objB).A);
             //dict
             object dictA = new Dictionary<string, string>();
-            object dictB = FastCloneOperator.Clone(dictA);
+            object dictB = FastObjectCloneOperator.Clone(dictA);
             Assert.NotNull(dictB);
             Assert.NotSame(dictA, dictB);
             //list
             object listA = new List<string>();
-            object listB = FastCloneOperator.Clone(listA);
+            object listB = FastObjectCloneOperator.Clone(listA);
             Assert.NotNull(listB);
             Assert.NotSame(listA, listB);
             //arr
             object arrA = new string[0];
-            object arrB = FastCloneOperator.Clone(arrA);
+            object arrB = FastObjectCloneOperator.Clone(arrA);
             Assert.NotNull(arrB);
             Assert.NotSame(arrA, arrB);
         }
