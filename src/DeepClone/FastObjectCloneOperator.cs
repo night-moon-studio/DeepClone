@@ -1,4 +1,5 @@
 ﻿using DeepClone.Builder;
+using Natasha;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -28,7 +29,13 @@ namespace DeepClone
             {
 
                 var type = instance.GetType();
-                if (type==typeof(object))
+                if (type.IsSimpleType())
+                {
+
+                    return instance;
+
+                }
+                else if (type==typeof(object))
                 {
 
                     return new object();
