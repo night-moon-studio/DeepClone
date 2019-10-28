@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using DeepClone.Model;
+﻿using DeepClone.Model;
 using Natasha;
 using Natasha.Operator;
+using System;
+using System.Linq;
+using System.Text;
 
 namespace DeepClone.Template
 {
