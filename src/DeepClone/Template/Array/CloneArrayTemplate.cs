@@ -7,10 +7,10 @@ using System.Text;
 
 namespace DeepClone.Template
 {
-    public class FullCloneArrayTemplate : ICloneTemplate
+    public class CloneArrayTemplate : ICloneTemplate
     {
         internal readonly static int HashCode;
-        static FullCloneArrayTemplate() => HashCode = typeof(FullCloneArrayTemplate).GetHashCode();
+        static CloneArrayTemplate() => HashCode = typeof(CloneArrayTemplate).GetHashCode();
 
         public override int GetHashCode() => HashCode;
 
@@ -66,12 +66,12 @@ namespace DeepClone.Template
             }
 
 
-            var action = FastMethodOperator.New
+            var action = FastMethodOperator.Create(info.CurrentType.GetDomain())
                             .Using("DeepClone")
                             .Using(typeof(Array))
-                            .Param(info.CurrentType, "oldIns")
+                            .Param(info.FatherType, "oldIns")
                             .MethodBody(methodBody)
-                            .Return(info.CurrentType)
+                            .Return(info.FatherType)
                             .Complie();
 
             return action;
@@ -122,7 +122,7 @@ namespace DeepClone.Template
                                                         , oldIns.Length
                                                         );
                     for (int i = 0; i < newIns.Length; i++)
-                        newIns[i] = FullObjectCloneOperator.Clone(oldIns[i]);
+                        newIns[i] = ObjectCloneOperator.Clone(oldIns[i]);
                     return newIns;
                 ";
             return methodBody;
@@ -195,7 +195,7 @@ namespace DeepClone.Template
                 if(oldIns==default) return default;
                 {info.CurrentTypeName} newIns = new {info.ElementTypeName}[{multiArrTypeStr}];
                 {sb.ToString()}
-                    newIns[{varNameStr}] = FullObjectCloneOperator.Clone(oldIns[{varNameStr}]);
+                    newIns[{varNameStr}] = ObjectCloneOperator.Clone(oldIns[{varNameStr}]);
                 return newIns;
             ";
             return methodBody;

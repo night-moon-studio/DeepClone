@@ -30,7 +30,7 @@ namespace DeepCloneUT
                     Id = 100000
                 };
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 Assert.Equal(model.Id, newModel.Id);
                 Assert.Equal(model.Title, newModel.Title);
                 Assert.Equal(model.money, newModel.money);
@@ -51,7 +51,7 @@ namespace DeepCloneUT
                     model.Name[i] = i.ToString();
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
 
                 for (int i = 0; i < 10; i++)
@@ -74,7 +74,7 @@ namespace DeepCloneUT
                     model.Models[i] = new FieldCloneNormalModel() { Age = i, Name = i.ToString() };
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
 
                 for (int i = 0; i < 10; i++)
@@ -94,7 +94,7 @@ namespace DeepCloneUT
                     Node = new FieldCloneNormalModel() { Age = 1, Name = "111" }
                 };
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 Assert.Equal(model.Node.Name, newModel.Node.Name);
                 Assert.Equal(model.Node.Age, newModel.Node.Age);
@@ -114,7 +114,7 @@ namespace DeepCloneUT
                     model.Nodes.Add(new FieldCloneNormalModel() { Age = i, Name = i.ToString() });
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 for (int i = 0; i < 10; i++)
                 {
                     Assert.Equal(model.Nodes[i].Name, newModel.Nodes[i].Name);
@@ -141,7 +141,7 @@ namespace DeepCloneUT
                     Id = 100000
                 };
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 Assert.Equal(model.Id, newModel.Id);
                 Assert.Equal(model.Title, newModel.Title);
                 Assert.Equal(model.money, newModel.money);
@@ -166,7 +166,7 @@ namespace DeepCloneUT
                     Id = 100000
                 };
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 Assert.False(newModel.NoUseCtor);
                 Assert.Equal(0, newModel.ReadOnly);
                 Assert.Equal(model.ReadOnlyString, newModel.ReadOnlyString);
@@ -194,7 +194,7 @@ namespace DeepCloneUT
                     model.Name[i] = i.ToString();
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
 
                 for (int i = 0; i < 10; i++)
@@ -217,7 +217,7 @@ namespace DeepCloneUT
                     model.Models[i] = new PropCloneNormalModel() { Age = i, Name = i.ToString() };
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
 
                 for (int i = 0; i < 10; i++)
@@ -239,7 +239,7 @@ namespace DeepCloneUT
                 };
 
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
 
                 Assert.Equal(model.Node.Name, newModel.Node.Name);
@@ -260,7 +260,7 @@ namespace DeepCloneUT
                     model.Nodes.Add(new PropCloneNormalModel() { Age = i, Name = i.ToString() });
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -287,7 +287,7 @@ namespace DeepCloneUT
                     }
                 }
                 model.LLNodes = INodes;
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 Assert.NotEqual(model.LLNodes, newModel.LLNodes);
                 var oldNodes = new List<List<PropCloneNormalModel>>(model.LLNodes);
@@ -322,7 +322,7 @@ namespace DeepCloneUT
                 }
 
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -354,7 +354,7 @@ namespace DeepCloneUT
                     }
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -377,7 +377,7 @@ namespace DeepCloneUT
                 };
                 model.Dicts["1"] = "2";
                 model.Dicts["2"] = "3";
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 foreach (var item in newModel.Dicts)
                 {
                     Assert.Equal(model.Dicts[item.Key], item.Value);
@@ -416,7 +416,7 @@ namespace DeepCloneUT
                 Title = true,
                 Id = 0
             } };
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 int i = 0;
                 foreach (var item in newModel.Dicts)
@@ -472,7 +472,7 @@ namespace DeepCloneUT
                     }
                 }
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 for (int i = 0; i < 5; i++)
                 {
 
@@ -519,7 +519,7 @@ namespace DeepCloneUT
                 });
 
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 Assert.NotEqual(model.Nodes.First, newModel.Nodes.First);
                 Assert.Equal(model.Nodes.First.Value.Name, newModel.Nodes.First.Value.Name);
@@ -554,7 +554,7 @@ namespace DeepCloneUT
                 }
 
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
 
                 Assert.NotNull(newModel.Nodes);
                 Assert.NotEqual(model.Nodes, newModel.Nodes);
@@ -586,7 +586,7 @@ namespace DeepCloneUT
                 };
 
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 Assert.NotEqual(model.Next, newModel.Next);
                 Assert.Equal(model.Next.Name, newModel.Next.Name);
             }
@@ -613,7 +613,7 @@ namespace DeepCloneUT
                 }
 
 
-                var newModel = FastCloneOperator.Clone(model);
+                var newModel = CloneOperator.Clone(model);
                 Assert.NotEqual(model.Next, newModel.Next);
                 for (int i = 0; i < 5; i++)
                 {

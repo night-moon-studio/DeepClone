@@ -65,7 +65,7 @@ namespace DeepCloneUT
                     { Name = "ApplicationName", Header = new[] { "申请单位名称" }, Required = true },
                 }
             };
-            var cloneMetadata = FastCloneOperator.Clone(metadata);
+            var cloneMetadata = CloneOperator.Clone(metadata);
             Assert.NotSame(metadata, cloneMetadata);
 
         }

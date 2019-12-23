@@ -1,15 +1,18 @@
 ﻿using DeepClone.Template;
 using Natasha;
 using System;
+using System.Collections;
 
 namespace DeepClone.Builder
 {
 
-    public static class FullCloneBuilder<T>
+    public static class CloneBuilder<T>
     {
         public static Func<T, T> Create(Type realType)
         {
+
             return (Func<T, T>)(new FullCloneBuilder()).Create<T>(realType);
+
         }
     }
 
@@ -18,9 +21,9 @@ namespace DeepClone.Builder
     {
         public FullCloneBuilder() : base()
         {
-            Register<FullCloneArrayTemplate>();
-            Register<FullCloneDictTemplate>();
-            Register<FullCloneListTemplate>();
+            Register<CloneArrayTemplate>();
+            Register<CloneDictTemplate>();
+            Register<CloneListTemplate>();
             Register<FullCloneClassTemplate>();
         }
 

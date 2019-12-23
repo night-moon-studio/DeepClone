@@ -3,16 +3,18 @@ using Natasha;
 using Natasha.Operator;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace DeepClone.Template
 {
 
-    public class FastCloneListTemplate : ICloneTemplate
+    public class CloneListTemplate : ICloneTemplate
     {
 
         internal readonly static int HashCode;
-        static FastCloneListTemplate() => HashCode = typeof(FastCloneListTemplate).GetHashCode();
+        static CloneListTemplate() => HashCode = typeof(CloneListTemplate).GetHashCode();
 
         public override int GetHashCode() => HashCode;
 
@@ -56,25 +58,25 @@ namespace DeepClone.Template
                 else if (parameters[0] == typeof(object))
                 {
 
-                    scriptBuilder.Append("FastObjectCloneOperator.Clone(item)");
+                    scriptBuilder.Append("ObjectCloneOperator.Clone(item)");
 
                 }
                 else
                 {
 
-                    scriptBuilder.Append("FastCloneOperator.Clone(item)");
+                    scriptBuilder.Append("CloneOperator.Clone(item)");
 
                 }
                 scriptBuilder.Append("));");
 
 
                 scriptBuilder.AppendLine(@"}return default;");
-                var action = FastMethodOperator.New
+                var action = FastMethodOperator.Create(info.CurrentType.GetDomain())
                                 .Using("DeepClone")
                                 .Using("System.Linq")
-                                .Param(info.CurrentType, "old")
+                                .Param(info.FatherType, "old")
                                 .MethodBody(scriptBuilder.ToString())
-                                .Return(info.CurrentType)
+                                .Return(info.FatherType)
                                 .Complie();
                 return action;
 

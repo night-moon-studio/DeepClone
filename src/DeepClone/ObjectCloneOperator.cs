@@ -7,13 +7,15 @@ using System.Text;
 
 namespace DeepClone
 {
-    public static class FullObjectCloneOperator
+    public static class ObjectCloneOperator
     {
 
-        public readonly static ConcurrentDictionary<Type, Func<object,object>> MethodCache;
-        static FullObjectCloneOperator()
+        public static HashCache<Type, Func<object, object>> CloneMapping;
+        public readonly static ConcurrentDictionary<Type, Func<object,object>> _methodCache;
+        static ObjectCloneOperator()
         {
-            MethodCache = new ConcurrentDictionary<Type, Func<object,object>>();
+            _methodCache = new ConcurrentDictionary<Type, Func<object,object>>();
+            CloneMapping = _methodCache.HashTree();
         }
 
         public static object Clone(object instance)
@@ -41,20 +43,23 @@ namespace DeepClone
                     return new object();
 
                 }
-                else if (MethodCache.ContainsKey(type))
-                {
-
-                    return MethodCache[type](instance);
-
-                }
                 else
                 {
 
-                    var func = FullObjectCloneBuilder.Create(type);
-                    MethodCache[type] = func;
+                    var func = CloneMapping.GetValue(type);
+                    if (func==default)
+                    {
+
+                        func = ObjectCloneBuilder.Create(type);
+                        _methodCache[type] = func;
+                        CloneMapping = _methodCache.HashTree();
+
+
+                    }
                     return func(instance);
 
                 }
+
 
             }
 

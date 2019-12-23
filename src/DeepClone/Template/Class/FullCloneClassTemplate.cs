@@ -13,7 +13,7 @@ namespace DeepClone.Template
     {
 
         internal readonly static int HashCode;
-        private FullCloneCtorTempalte CtorHandler;
+        private CtorTempalte CtorHandler;
         static FullCloneClassTemplate() => HashCode = typeof(FullCloneClassTemplate).GetHashCode();
 
 
@@ -37,18 +37,18 @@ namespace DeepClone.Template
         public Delegate TypeRouter(NBuildInfo info)
         {
 
-            CtorHandler = new FullCloneCtorTempalte(info.CurrentType);
-
             var instanceName = "oldSource";
             info.FatherType = info.FatherType == typeof(object) ? info.CurrentType : info.FatherType;
             if (info.CurrentType != info.FatherType)
             {
                 instanceName = "old";
             }
+            CtorHandler = new CtorTempalte(info.CurrentType, instanceName);
+
 
             StringBuilder scriptBuilder = new StringBuilder();
             var memberBuilder = new StringBuilder();
-            var builder = FastMethodOperator.New;
+            var builder = FastMethodOperator.Create(info.CurrentType.GetDomain());
             //构造函数处理: 不存在public无参构造函数无法克隆;
             if (info.CurrentType.GetConstructor(new Type[0]) == null)
             {
@@ -71,16 +71,26 @@ namespace DeepClone.Template
                 {
                     if (member.MemberType.IsSimpleType())
                     {
+
+                        //简单类型直接赋值（值类型）
                         memberBuilder.Append($"{member.MemberName}={instanceName}.{member.MemberName},");
+
                     }
                     else if (member.MemberType == typeof(object))
                     {
-                        memberBuilder.Append($"{member.MemberName}=FullObjectCloneOperator.Clone({instanceName}.{member.MemberName}),");
+
+                        //如果是object类型，那么使用object克隆方法
+                        memberBuilder.Append($"{member.MemberName}=ObjectCloneOperator.Clone({instanceName}.{member.MemberName}),");
+
                     }
                     else
                     {
+
+                        //如果是运行时类型
+                        //精确添加Using防止二义性引用
                         builder.Using(member.MemberType);
                         memberBuilder.Append($"{member.MemberName}=CloneOperator.Clone({instanceName}.{member.MemberName}),");
+
                     }
 
                 }
@@ -91,6 +101,7 @@ namespace DeepClone.Template
             foreach (var fieldInfo in info.CurrentType.GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
 
+                //获取NeetCtor注解
                 var ctorAttr = fieldInfo.GetCustomAttribute<NeedCtorAttribute>();
                 if (ctorAttr != default)
                 {
@@ -104,6 +115,7 @@ namespace DeepClone.Template
             foreach (var propertyInfo in info.CurrentType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
 
+                //获取NeetCtor注解
                 var ctorAttr = propertyInfo.GetCustomAttribute<NeedCtorAttribute>();
                 if (ctorAttr != default)
                 {
@@ -124,6 +136,7 @@ namespace DeepClone.Template
                 scriptBuilder.Insert(0, $"if(oldSource!=default){{ var old = ({info.CurrentTypeName})oldSource; return new {info.CurrentTypeName}({readonlyScript}) {{");
             }
            
+
             if (memberBuilder.Length > 0)
             {
                 memberBuilder.Length -= 1;

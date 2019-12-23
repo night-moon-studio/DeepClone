@@ -40,7 +40,7 @@ namespace DeepCloneUT
             List<string> lli = new List<string>();
             lli.Add("123");
             lli.Add("456");
-            var tt1 = FastCloneOperator.Clone(lli.ToArray());
+            var tt1 = CloneOperator.Clone(lli.ToArray());
             Assert.NotSame(lli, tt1);
             for (int i = 0; i < lli.Count; i++)
             {
@@ -69,10 +69,10 @@ namespace DeepCloneUT
                 new Parent(){A="1",B="1"},
                 new Child(){A="1",B=1}
             };
-            var cloneList = FastCloneOperator.Clone(list);
+            var cloneList = CloneOperator.Clone(list);
             Assert.IsType<Child>(list[1]);
-            Assert.IsType<Parent>(cloneList[1]);
-            Assert.NotEqual(list[1].GetType(), cloneList[1].GetType());
+            Assert.IsType<Child>(cloneList[1]);
+            Assert.Equal(list[1].GetType(), cloneList[1].GetType());
             Assert.Equal(((Parent)list[1]).B, ((Parent)cloneList[1]).B);
             Assert.Equal(default, cloneList[1].B);
         }
@@ -81,11 +81,11 @@ namespace DeepCloneUT
         public void CloneWithChildClassInstanceTest()
         {
             Parent p = new Child() { A = "1", B = 1 };
-            Parent cloneP = FastCloneOperator.Clone(p);
+            Parent cloneP = CloneOperator.Clone(p);
             Assert.IsType<Child>(p);
             Assert.Equal(default, p.B);
             Assert.Equal(1, ((Child)p).B);
-            Assert.IsType<Parent>(cloneP);
+            Assert.IsType<Child>(cloneP);
             Assert.NotSame(p, cloneP);
         }
     }

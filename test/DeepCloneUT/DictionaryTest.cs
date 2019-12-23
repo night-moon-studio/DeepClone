@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeepClone;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace DeepCloneUT
         public void DictionaryCloneTest()
         {
             var dict = new Dictionary<string, List<int>>() { { "1", new List<int> { 1} } };
-            var dictNew = DeepClone.FastCloneOperator.Clone(dict);
+            var dictNew = CloneOperator.Clone(dict);
             Assert.NotNull(dictNew);
             Assert.NotSame(dict, dictNew);
             Assert.True(dict.Count == dictNew.Count);
@@ -20,7 +21,7 @@ namespace DeepCloneUT
             Assert.NotSame(dict["1"], dictNew["1"]);
 
             var dictModel = new Dictionary<TestModel, int> { { new TestModel(),1 } };
-            var dictModelNew = DeepClone.FastCloneOperator.Clone(dictModel);
+            var dictModelNew = CloneOperator.Clone(dictModel);
             Assert.NotNull(dictModelNew); 
             Assert.NotSame(dictModel, dictModelNew);
             Assert.True(dictModel.Count == dictModelNew.Count);

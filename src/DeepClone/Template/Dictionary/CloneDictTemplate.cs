@@ -8,11 +8,11 @@ using System.Text;
 
 namespace DeepClone.Template
 {
-    public class FullCloneDictTemplate : ICloneTemplate
+    public class CloneDictTemplate : ICloneTemplate
     {
 
         internal readonly static int HashCode;
-        static FullCloneDictTemplate() => HashCode = typeof(FullCloneDictTemplate).GetHashCode();
+        static CloneDictTemplate() => HashCode = typeof(CloneDictTemplate).GetHashCode();
 
 
 
@@ -61,7 +61,7 @@ namespace DeepClone.Template
             else if (keyType == typeof(object))
             {
 
-                scriptBuilder.AppendLine($"FullObjectCloneOperator.Clone(item.Key),");
+                scriptBuilder.AppendLine($"ObjectCloneOperator.Clone(item.Key),");
 
             }
             else
@@ -83,7 +83,7 @@ namespace DeepClone.Template
             else if (keyType == typeof(object))
             {
 
-                scriptBuilder.AppendLine($"FullObjectCloneOperator.Clone(item.Value),");
+                scriptBuilder.AppendLine($"ObjectCloneOperator.Clone(item.Value),");
 
             }
             else
@@ -96,16 +96,15 @@ namespace DeepClone.Template
 
             //补全括号，返回默认值。
             scriptBuilder.AppendLine(")));}return default;");
-            var actionBuilder = FastMethodOperator.New;
 
-            var action = actionBuilder
+            var action = FastMethodOperator.Create(info.CurrentType.GetDomain())
                             .Using("DeepClone")
                             .Using("System.Linq")
                             .Using(typeof(IDictionary))
                             .Using(typeof(KeyValuePair<,>))
-                            .Param(info.CurrentType, "old")
+                            .Param(info.FatherType, "old")
                             .MethodBody(scriptBuilder.ToString())
-                            .Return(info.CurrentType)
+                            .Return(info.FatherType)
                             .Complie();
             return action;
 

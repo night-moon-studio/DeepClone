@@ -34,7 +34,7 @@ namespace DeepCloneUT
                                         }
                                     };
 
-            var arrayTemp = new FastCloneArrayTemplate();
+            var arrayTemp = new CloneArrayTemplate();
 
             Assert.True(arrayTemp.MatchType(ins1.GetType()));
             Assert.True(arrayTemp.MatchType(ins2.GetType()));
@@ -65,7 +65,7 @@ namespace DeepCloneUT
                 {"Key2","Value2"}
             };
 
-            var arrayTemp = new FastCloneArrayTemplate();
+            var arrayTemp = new CloneArrayTemplate();
             Assert.False(arrayTemp.MatchType(ins0.GetType()));
             Assert.False(arrayTemp.MatchType(ins1.GetType()));
             Assert.False(arrayTemp.MatchType(ins2.GetType()));
@@ -103,22 +103,22 @@ namespace DeepCloneUT
             var arrIns14 = new char[] { '1', '2', 'a', 'Z' };
             var arrIns15 = new string[] { "Vito", "AzulX", "guodf", "wxn401", "myFirstway" };
 
-            var arrIns0_Clone = FastCloneOperator.Clone(arrIns0);
-            var arrIns1_Clone = FastCloneOperator.Clone(arrIns1);
-            var arrIns2_Clone = FastCloneOperator.Clone(arrIns2);
-            var arrIns3_Clone = FastCloneOperator.Clone(arrIns3);
-            var arrIns4_Clone = FastCloneOperator.Clone(arrIns4);
-            var arrIns5_Clone = FastCloneOperator.Clone(arrIns5);
-            var arrIns6_Clone = FastCloneOperator.Clone(arrIns6);
-            var arrIns7_Clone = FastCloneOperator.Clone(arrIns7);
-            var arrIns8_Clone = FastCloneOperator.Clone(arrIns8);
-            var arrIns9_Clone = FastCloneOperator.Clone(arrIns9);
-            var arrIns10_Clone = FastCloneOperator.Clone(arrIns10);
-            var arrIns11_Clone = FastCloneOperator.Clone(arrIns11);
-            var arrIns12_Clone = FastCloneOperator.Clone(arrIns12);
-            var arrIns13_Clone = FastCloneOperator.Clone(arrIns13);
-            var arrIns14_Clone = FastCloneOperator.Clone(arrIns14);
-            var arrIns15_Clone = FastCloneOperator.Clone(arrIns15);
+            var arrIns0_Clone = CloneOperator.Clone(arrIns0);
+            var arrIns1_Clone = CloneOperator.Clone(arrIns1);
+            var arrIns2_Clone = CloneOperator.Clone(arrIns2);
+            var arrIns3_Clone = CloneOperator.Clone(arrIns3);
+            var arrIns4_Clone = CloneOperator.Clone(arrIns4);
+            var arrIns5_Clone = CloneOperator.Clone(arrIns5);
+            var arrIns6_Clone = CloneOperator.Clone(arrIns6);
+            var arrIns7_Clone = CloneOperator.Clone(arrIns7);
+            var arrIns8_Clone = CloneOperator.Clone(arrIns8);
+            var arrIns9_Clone = CloneOperator.Clone(arrIns9);
+            var arrIns10_Clone = CloneOperator.Clone(arrIns10);
+            var arrIns11_Clone = CloneOperator.Clone(arrIns11);
+            var arrIns12_Clone = CloneOperator.Clone(arrIns12);
+            var arrIns13_Clone = CloneOperator.Clone(arrIns13);
+            var arrIns14_Clone = CloneOperator.Clone(arrIns14);
+            var arrIns15_Clone = CloneOperator.Clone(arrIns15);
 
             Assert.Equal(arrIns0_Clone, arrIns0);
             Assert.Equal(arrIns1_Clone, arrIns1);
@@ -158,11 +158,11 @@ namespace DeepCloneUT
             };
             // var arrIns5 = new dynamic[] { };
 
-            var arrIns0_Clone = FastCloneOperator.Clone(arrIns0);
+            var arrIns0_Clone = CloneOperator.Clone(arrIns0);
             // var arrIns1_Clone = CloneOperator.Clone(arrIns1);
-            var arrIns2_Clone = FastCloneOperator.Clone(arrIns2);
-            var arrIns3_Clone = FastCloneOperator.Clone(arrIns3);
-            var arrIns4_Clone = FastCloneOperator.Clone(arrIns4);
+            var arrIns2_Clone = CloneOperator.Clone(arrIns2);
+            var arrIns3_Clone = CloneOperator.Clone(arrIns3);
+            var arrIns4_Clone = CloneOperator.Clone(arrIns4);
             // var arrIns5_Clone = CloneOperator.Clone(arrIns5);
 
             Assert.Null(arrIns0_Clone);
@@ -348,22 +348,22 @@ namespace DeepCloneUT
                 }
             };
 
-            var arrIns0_Clone = FastCloneOperator.Clone(arrIns0);
-            var arrIns1_Clone = FastCloneOperator.Clone(arrIns1);
-            var arrIns2_Clone = FastCloneOperator.Clone(arrIns2);
-            var arrIns3_Clone = FastCloneOperator.Clone(arrIns3);
-            var arrIns4_Clone = FastCloneOperator.Clone(arrIns4);
-            var arrIns5_Clone = FastCloneOperator.Clone(arrIns5);
-            var arrIns6_Clone = FastCloneOperator.Clone(arrIns6);
-            var arrIns7_Clone = FastCloneOperator.Clone(arrIns7);
-            var arrIns8_Clone = FastCloneOperator.Clone(arrIns8);
-            var arrIns9_Clone = FastCloneOperator.Clone(arrIns9);
-            var arrIns10_Clone = FastCloneOperator.Clone(arrIns10);
-            var arrIns11_Clone = FastCloneOperator.Clone(arrIns11);
-            var arrIns12_Clone = FastCloneOperator.Clone(arrIns12);
-            var arrIns13_Clone = FastCloneOperator.Clone(arrIns13);
-            var arrIns14_Clone = FastCloneOperator.Clone(arrIns14);
-            var arrIns15_Clone = FastCloneOperator.Clone(arrIns15);
+            var arrIns0_Clone = CloneOperator.Clone(arrIns0);
+            var arrIns1_Clone = CloneOperator.Clone(arrIns1);
+            var arrIns2_Clone = CloneOperator.Clone(arrIns2);
+            var arrIns3_Clone = CloneOperator.Clone(arrIns3);
+            var arrIns4_Clone = CloneOperator.Clone(arrIns4);
+            var arrIns5_Clone = CloneOperator.Clone(arrIns5);
+            var arrIns6_Clone = CloneOperator.Clone(arrIns6);
+            var arrIns7_Clone = CloneOperator.Clone(arrIns7);
+            var arrIns8_Clone = CloneOperator.Clone(arrIns8);
+            var arrIns9_Clone = CloneOperator.Clone(arrIns9);
+            var arrIns10_Clone = CloneOperator.Clone(arrIns10);
+            var arrIns11_Clone = CloneOperator.Clone(arrIns11);
+            var arrIns12_Clone = CloneOperator.Clone(arrIns12);
+            var arrIns13_Clone = CloneOperator.Clone(arrIns13);
+            var arrIns14_Clone = CloneOperator.Clone(arrIns14);
+            var arrIns15_Clone = CloneOperator.Clone(arrIns15);
 
             Assert.Equal(arrIns0_Clone, arrIns0);
             Assert.Equal(arrIns1_Clone, arrIns1);
@@ -441,11 +441,11 @@ namespace DeepCloneUT
             //     }
             // };
 
-            var arrIns0_Clone = FastCloneOperator.Clone(arrIns0);
+            var arrIns0_Clone = CloneOperator.Clone(arrIns0);
             // var arrIns1_Clone = CloneOperator.Clone(arrIns1);
-            var arrIns2_Clone = FastCloneOperator.Clone(arrIns2);
-            var arrIns3_Clone = FastCloneOperator.Clone(arrIns3);
-            var arrIns4_Clone = FastCloneOperator.Clone(arrIns4);
+            var arrIns2_Clone = CloneOperator.Clone(arrIns2);
+            var arrIns3_Clone = CloneOperator.Clone(arrIns3);
+            var arrIns4_Clone = CloneOperator.Clone(arrIns4);
             // var arrIns5_Clone = CloneOperator.Clone(arrIns5);
 
             Assert.Null(arrIns0_Clone);
@@ -654,22 +654,22 @@ namespace DeepCloneUT
             };
 
 
-            var arrIns0_Clone = FastCloneOperator.Clone(arrIns0);
-            var arrIns1_Clone = FastCloneOperator.Clone(arrIns1);
-            var arrIns2_Clone = FastCloneOperator.Clone(arrIns2);
-            var arrIns3_Clone = FastCloneOperator.Clone(arrIns3);
-            var arrIns4_Clone = FastCloneOperator.Clone(arrIns4);
-            var arrIns5_Clone = FastCloneOperator.Clone(arrIns5);
-            var arrIns6_Clone = FastCloneOperator.Clone(arrIns6);
-            var arrIns7_Clone = FastCloneOperator.Clone(arrIns7);
-            var arrIns8_Clone = FastCloneOperator.Clone(arrIns8);
-            var arrIns9_Clone = FastCloneOperator.Clone(arrIns9);
-            var arrIns10_Clone = FastCloneOperator.Clone(arrIns10);
-            var arrIns11_Clone = FastCloneOperator.Clone(arrIns11);
-            var arrIns12_Clone = FastCloneOperator.Clone(arrIns12);
-            var arrIns13_Clone = FastCloneOperator.Clone(arrIns13);
-            var arrIns14_Clone = FastCloneOperator.Clone(arrIns14);
-            var arrIns15_Clone = FastCloneOperator.Clone(arrIns15);
+            var arrIns0_Clone = CloneOperator.Clone(arrIns0);
+            var arrIns1_Clone = CloneOperator.Clone(arrIns1);
+            var arrIns2_Clone = CloneOperator.Clone(arrIns2);
+            var arrIns3_Clone = CloneOperator.Clone(arrIns3);
+            var arrIns4_Clone = CloneOperator.Clone(arrIns4);
+            var arrIns5_Clone = CloneOperator.Clone(arrIns5);
+            var arrIns6_Clone = CloneOperator.Clone(arrIns6);
+            var arrIns7_Clone = CloneOperator.Clone(arrIns7);
+            var arrIns8_Clone = CloneOperator.Clone(arrIns8);
+            var arrIns9_Clone = CloneOperator.Clone(arrIns9);
+            var arrIns10_Clone = CloneOperator.Clone(arrIns10);
+            var arrIns11_Clone = CloneOperator.Clone(arrIns11);
+            var arrIns12_Clone = CloneOperator.Clone(arrIns12);
+            var arrIns13_Clone = CloneOperator.Clone(arrIns13);
+            var arrIns14_Clone = CloneOperator.Clone(arrIns14);
+            var arrIns15_Clone = CloneOperator.Clone(arrIns15);
 
             Assert.Equal(arrIns0_Clone, arrIns0);
             Assert.Equal(arrIns1_Clone, arrIns1);
@@ -768,11 +768,11 @@ namespace DeepCloneUT
             // };
 
 
-            var arrIns0_Clone = FastCloneOperator.Clone(arrIns0);
+            var arrIns0_Clone = CloneOperator.Clone(arrIns0);
             // var arrIns1_Clone = CloneOperator.Clone(arrIns1);
-            var arrIns2_Clone = FastCloneOperator.Clone(arrIns2);
-            var arrIns3_Clone = FastCloneOperator.Clone(arrIns3);
-            var arrIns4_Clone = FastCloneOperator.Clone(arrIns4);
+            var arrIns2_Clone = CloneOperator.Clone(arrIns2);
+            var arrIns3_Clone = CloneOperator.Clone(arrIns3);
+            var arrIns4_Clone = CloneOperator.Clone(arrIns4);
             // var arrIns5_Clone = CloneOperator.Clone(arrIns5);
 
 

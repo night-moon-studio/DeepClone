@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DeepClone.Model
+namespace DeepClone
 {
 
     public class NeedCtorAttribute:Attribute
