@@ -55,15 +55,16 @@ ObjectCloneOperator.Clone(obj);
 ```C#
 //readonly 字段会根据构造函数中参数名，或者通过注解进行匹配
 
-public class A(){
+public class A()
+{
 
-public A(string name,int age){ StuName = name; Age = age; }
+   public A(string name,int age){ StuName = name; Age = age; }
 
-[NeedCtor("name")]
-public readonly StuName;
+   [NeedCtor("name")]
+   public readonly StuName;
 
-[NeedCtor]
-public readonly Age;
+   [NeedCtor]
+   public readonly Age;
 
 }
 ```
