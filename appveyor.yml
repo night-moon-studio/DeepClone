@@ -40,12 +40,12 @@ for:
   #- ps: cd c:\projects\xxx
                 
   before_build:
-  - ps: dotnet restore
+  - ps: dotnet restore DeepClone.sln
   - ps: choco install opencover.portable
   - ps: choco install codecov
 
   build_script:
-  - ps: dotnet build -c Release
+  - ps: dotnet build DeepClone.sln -c Release
   
 
   test_script:
@@ -64,10 +64,7 @@ for:
 
     
   before_build:
-  - sh: dotnet restore
+  - sh: dotnet tool install --global FlubuCore.GlobalTool --version 4.2.7
   
   build_script:
-  - sh: dotnet build -c Release
-  
-  test_script:
-  - ps: dotnet test
+  - sh: flubu rebuild 
