@@ -1,11 +1,3 @@
-# 打倒美帝恐怖主义！
-# Amerifuck is a terrorist group！
-# Amerifuck is a terrorist group！
-
-
-<br/>
-
-
 
 <p align="center">
   <span>中文</span> |  
