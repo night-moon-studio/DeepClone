@@ -7,7 +7,7 @@
     <PackageId>DotNetCore.Natasha.DeepClone</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageReleaseNotes>CloneOperator.Clone(instance);</PackageReleaseNotes>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.3</Version>
     <PackageLicenseUrl>https://github.com/night-moon-studio/DeepClone/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/night-moon-studio/DeepClone</PackageProjectUrl>
     <PackageTags>DeepClone; Natasha; Roslyn;</PackageTags>
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Natasha.DynamicCache" Version="1.2.1.14" />
+    <PackageReference Include="DotNetCore.Natasha.DynamicCache" Version="1.2.1.16" />
   </ItemGroup>
 
 
