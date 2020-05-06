@@ -1,4 +1,5 @@
 ﻿using DeepClone.Builder;
+using DynamicCache;
 using System;
 using System.Collections.Concurrent;
 
@@ -50,8 +51,7 @@ namespace DeepClone
 
                 func = CloneBuilder<T>.Create(type);
                 _mapping_cache[type] = func;
-                CloneMapping = _mapping_cache.HashTree();
-
+                CloneMapping = _mapping_cache.HashTree(DyanamicCacheDirection.KeyToValue);
             }
 
             return func(instance);

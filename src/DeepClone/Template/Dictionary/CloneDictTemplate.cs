@@ -1,6 +1,6 @@
 ﻿using DeepClone.Model;
 using Natasha;
-using Natasha.Operator;
+using Natasha.CSharp.Operator;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -97,16 +97,15 @@ namespace DeepClone.Template
             //补全括号，返回默认值。
             scriptBuilder.AppendLine(")));}return default;");
 
-            var action = FastMethodOperator.Create(info.CurrentType.GetDomain())
+            return FastMethodOperator.UseDomain(info.CurrentType.GetDomain())
                             .Using("DeepClone")
                             .Using("System.Linq")
                             .Using(typeof(IDictionary))
                             .Using(typeof(KeyValuePair<,>))
                             .Param(info.FatherType, "old")
-                            .MethodBody(scriptBuilder.ToString())
+                            .Body(scriptBuilder.ToString())
                             .Return(info.FatherType)
-                            .Complie();
-            return action;
+                            .Compile();
 
         }
 

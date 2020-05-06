@@ -24,7 +24,7 @@ namespace DeepClone.Builder
             Register<CloneArrayTemplate>();
             Register<CloneDictTemplate>();
             Register<CloneListTemplate>();
-            Register<FullCloneClassTemplate>();
+            Register<CloneClassTemplate>();
         }
 
         public Delegate Create<T>(Type type)

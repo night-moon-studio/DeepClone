@@ -1,6 +1,6 @@
 ﻿using DeepClone.Model;
 using Natasha;
-using Natasha.Operator;
+using Natasha.CSharp.Operator;
 using System;
 using System.Linq;
 using System.Text;
@@ -66,15 +66,13 @@ namespace DeepClone.Template
             }
 
 
-            var action = FastMethodOperator.Create(info.CurrentType.GetDomain())
+            return FastMethodOperator.UseDomain(info.CurrentType.GetDomain())
                             .Using("DeepClone")
                             .Using(typeof(Array))
                             .Param(info.FatherType, "oldIns")
-                            .MethodBody(methodBody)
+                            .Body(methodBody)
                             .Return(info.FatherType)
-                            .Complie();
-
-            return action;
+                            .Compile();
         }
 
 

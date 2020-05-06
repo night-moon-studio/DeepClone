@@ -1,4 +1,5 @@
 ﻿using Natasha;
+using Natasha.CSharp;
 using System;
 
 namespace DeepClone.Builder
@@ -9,7 +10,7 @@ namespace DeepClone.Builder
 
         public static Func<object, object> Create(Type type)
         {
-            return NDomain.Create(type.GetDomain()) .Func< object, object>($"return CloneOperator.Clone(({type.GetDevelopName()})arg);", type, "DeepClone");
+            return NDelegate.UseDomain(type.GetDomain()).Func<object, object>($"return CloneOperator.Clone(({type.GetDevelopName()})arg);", type, "DeepClone");
         }
 
     }
