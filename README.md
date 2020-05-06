@@ -36,8 +36,6 @@
 
 <br/>    
 
-### 团队成员：
-
 
 #### 使用方法(User Api)：  
 
@@ -90,45 +88,7 @@ public class A()
  
 ---------------------  
  <br/>  
- 
 
-### 使用方法(User Api)：  
- <br/>  
- 
-#### 引入动态编译环境：
-
-引用 "DotNetCore.Compile.Environment" 就不用下面的了;  
-> "DotNetCore.Compile.Environment" 为动态编译提供了依赖环境.
-> 构建文件不具备继承性，所以每一个新的工程都需要引用该库。  
-
-```C#
-
-  <PropertyGroup>
-  
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    
-    //控制台/桌面如下
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    
-    //老版WEB需要
-    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
-    
-    //3.1 新版WEB要加
-    <PreserveCompilationReferences>true</PreserveCompilationReferences>
-    //3.1 如果不加上面节点也可以引用Razor的编译服务
-    Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
-    
-    //如果你觉得发布文件夹下关于本地化的文件夹太多，您可以选择如下节点
-    //选项：cs / de / es / fr / it / ja / ko / pl / ru / tr / zh-Hans / zh-Hant
-    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    
-  </PropertyGroup>
- 
-```  
-
-<br/>  
-<br/>  
 
 
 ## License
