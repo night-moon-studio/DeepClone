@@ -133,7 +133,7 @@ namespace NatashaUT.Model
     }
     public class CloneDictArrayModel
     {
-        public Dictionary<string, FieldCloneNormalModel[]>[] Dicts;
+        public IDictionary<string, FieldCloneNormalModel[]>[] Dicts;
     }
 
     public class FieldLinkModel

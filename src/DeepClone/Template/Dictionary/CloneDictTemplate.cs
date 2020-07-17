@@ -4,6 +4,7 @@ using Natasha.Operator;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DeepClone.Template
@@ -46,7 +47,7 @@ namespace DeepClone.Template
                 scriptBuilder.AppendLine($"new {info.CurrentTypeName}");
 
             }
-           scriptBuilder.AppendLine("(old.Select(item=>KeyValuePair.Create(");
+            scriptBuilder.AppendLine("(old.ToDictionary(item=>KeyValuePair.Create(");
 
 
 
