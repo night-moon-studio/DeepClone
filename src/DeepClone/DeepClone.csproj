@@ -7,10 +7,10 @@
     <PackageId>NMS.DeepClone</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageReleaseNotes>CloneOperator.Clone(instance);</PackageReleaseNotes>
-    <Version>1.0.0</Version>
+    <Version>1.0.0.1</Version>
     <PackageLicenseUrl>https://github.com/night-moon-studio/DeepClone/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/night-moon-studio/DeepClone</PackageProjectUrl>
-    <PackageTags>DeepClone; Natasha; Roslyn;</PackageTags>
+    <PackageTags>DeepClone; Natasha; Roslyn;NMS;</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/51699821</PackageIconUrl>
   </PropertyGroup>
