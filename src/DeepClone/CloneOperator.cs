@@ -35,7 +35,7 @@ namespace DeepClone
 
 
 
-        public static T Clone(T instance)
+        public unsafe static T Clone(T instance)
         {
 
             if (instance == default)

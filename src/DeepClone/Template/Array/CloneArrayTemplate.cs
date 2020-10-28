@@ -1,6 +1,6 @@
 ﻿using DeepClone.Model;
 using Natasha;
-using Natasha.CSharp.Operator;
+using Natasha.CSharp;
 using System;
 using System.Linq;
 using System.Text;

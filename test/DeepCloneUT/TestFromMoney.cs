@@ -50,7 +50,7 @@ namespace DeepCloneUT
     }
 
 
-    public class TestFromMoney
+    public class TestFromMoney : Prepare
     {
 
         [Fact]

@@ -19,7 +19,7 @@ namespace DeepClone
             CloneMapping = _methodCache.HashTree();
         }
 
-        public static object Clone(object instance)
+        public unsafe static object Clone(object instance)
         {
 
             if (instance==null)

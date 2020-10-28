@@ -15,8 +15,16 @@
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/51699821</PackageIconUrl>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Natasha.DynamicCache" Version="1.4.0" />
+    <PackageReference Include="NMS.DynamicCache" Version="1.4.2" />
   </ItemGroup>
 
 

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace DeepCloneUT
 {
-    public class ObjectTest
+    public class ObjectTest : Prepare
     {
         public class TestModel 
         {
