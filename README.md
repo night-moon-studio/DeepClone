@@ -43,9 +43,8 @@
  
  - 引入 动态构件库： NMS.DeepClone
 
- - 引入 编译环境库： DotNetCore.Compile.Environment
+ - 初始化： NatashaInitializer.InitializeAndPreheating();
 
- - 向引擎中注入定制的域： DomainManagement.RegisterDefault< AssemblyDomain >()
 
  - 敲代码  
  
