@@ -36,10 +36,21 @@
 
 <br/>    
 
-### 团队成员：
+
+#### 使用方法(User Api)：  
+
+ <br/>  
+ 
+ - 引入 动态构件库： NMS.DeepClone
+
+ - 初始化： NatashaInitializer.InitializeAndPreheating();
 
 
-### 使用方法：
+ - 敲代码  
+ 
+ 
+<br/>  
+
 
 ```C#
 
@@ -76,33 +87,7 @@ public class A()
  
 ---------------------  
  <br/>  
- 
 
-### 使用方法(User Api)：  
- <br/>  
- 
-#### 首先编辑您的工程文件：
-
-
-```C#
-
-  <PropertyGroup>
-  
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    
-    //一定要加上这句话
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    
-    //WEB发布要加
-    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
-    
-  </PropertyGroup>
- 
-```    
-
-<br/>  
-<br/>  
 
 
 ## License

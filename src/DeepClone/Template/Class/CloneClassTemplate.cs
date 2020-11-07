@@ -1,6 +1,6 @@
 ﻿using DeepClone.Model;
 using Natasha;
-using Natasha.Operator;
+using Natasha.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,12 +9,12 @@ using System.Text;
 
 namespace DeepClone.Template
 {
-    public class FullCloneClassTemplate : ICloneTemplate
+    public class CloneClassTemplate : ICloneTemplate
     {
 
         internal readonly static int HashCode;
         private CtorTempalte CtorHandler;
-        static FullCloneClassTemplate() => HashCode = typeof(FullCloneClassTemplate).GetHashCode();
+        static CloneClassTemplate() => HashCode = typeof(CloneClassTemplate).GetHashCode();
 
 
 
@@ -48,7 +48,7 @@ namespace DeepClone.Template
 
             StringBuilder scriptBuilder = new StringBuilder();
             var memberBuilder = new StringBuilder();
-            var builder = FastMethodOperator.Create(info.CurrentType.GetDomain());
+            var builder = FastMethodOperator.UseDomain(info.CurrentType.GetDomain());
             //构造函数处理: 不存在public无参构造函数无法克隆;
             if (info.CurrentType.GetConstructor(new Type[0]) == null)
             {
@@ -145,14 +145,13 @@ namespace DeepClone.Template
 
           
             scriptBuilder.Append("};}return default;");
-            var func = builder
+            return builder
                 .Using("DeepClone")
                 .Using(info.CurrentType)
                 .Param(info.FatherType, "oldSource")
-                .MethodBody(scriptBuilder.ToString())
+                .Body(scriptBuilder.ToString())
                 .Return(info.FatherType)
-                .Complie();
-            return func;
+                .Compile();
         }
 
     }

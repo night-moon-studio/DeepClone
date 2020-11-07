@@ -1,4 +1,5 @@
 ﻿using DeepClone.Builder;
+using DynamicCache;
 using Natasha;
 using System;
 using System.Collections.Concurrent;
@@ -18,7 +19,7 @@ namespace DeepClone
             CloneMapping = _methodCache.HashTree();
         }
 
-        public static object Clone(object instance)
+        public unsafe static object Clone(object instance)
         {
 
             if (instance==null)
@@ -52,8 +53,14 @@ namespace DeepClone
 
                         func = ObjectCloneBuilder.Create(type);
                         _methodCache[type] = func;
-                        CloneMapping = _methodCache.HashTree();
-
+                        int[] code = new int[_methodCache.Count];
+                        int i = 0;
+                        foreach (var item in _methodCache)
+                        {
+                            code[i] = item.Value.GetHashCode();
+                            i++;
+                        }
+                        CloneMapping = _methodCache.HashTree(DyanamicCacheDirection.KeyToValue);
 
                     }
                     return func(instance);

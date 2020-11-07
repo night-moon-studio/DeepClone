@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DeepCloneUT
 {
-    public class ArrayTest
+    public class ArrayTest: Prepare
     {
         [Fact]
         public void IsArray()

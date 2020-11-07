@@ -4,26 +4,28 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>基于Natasha实现深度克隆，包括实体类、数组、集合、链表、字典等数据类型。 
 </Description>
-    <PackageId>DotNetCore.Natasha.DeepClone</PackageId>
+    <PackageId>NMS.DeepClone</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageReleaseNotes>CloneOperator.Clone(instance);</PackageReleaseNotes>
-    <Version>1.0.0.4</Version>
+    <Version>1.0.0.1</Version>
     <PackageLicenseUrl>https://github.com/night-moon-studio/DeepClone/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/night-moon-studio/DeepClone</PackageProjectUrl>
-    <PackageTags>DeepClone; Natasha; Roslyn;</PackageTags>
+    <PackageTags>DeepClone; Natasha; Roslyn;NMS;</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19404084</PackageIconUrl>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/51699821</PackageIconUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Natasha.DynamicCache" Version="1.2.1.18" />
+    <PackageReference Include="NMS.DynamicCache" Version="1.4.2" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Reference Include="Natasha">
-      <HintPath>..\..\..\Natasha\src\Natasha\bin\Debug\netstandard2.0\Natasha.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
 </Project>

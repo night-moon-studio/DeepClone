@@ -13,7 +13,7 @@ namespace DeepCloneUT
 
 
         [Trait("克隆测试", "")]
-        public class DynamicCloneTest
+        public class DynamicCloneTest : Prepare
         {
 
             [Fact(DisplayName = "字段--基元类型以及结构体")]

@@ -31,7 +31,7 @@ namespace DeepCloneUT
         public int B { get; set; }
     }
 
-    public class ListTest
+    public class ListTest : Prepare
     {
         [Fact]
         public void ClassCloneTest()

@@ -28,7 +28,7 @@ namespace DeepCloneUT
         public new string B { get; set; }
     }
 
-    public class SupportSubclassTest
+    public class SupportSubclassTest : Prepare
     {
         [Fact]
         public void ListCloneWithChildClassInstanceTest()
